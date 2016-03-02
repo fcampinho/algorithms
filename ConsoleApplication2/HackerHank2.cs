@@ -14,7 +14,42 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            IceCreamParlor();
+            LonelyInteger();
+        }
+
+        static int lonelyinteger(int[] a)
+        {
+            Dictionary<int, int> lonely = new Dictionary<int, int>();
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (lonely.ContainsKey(a[i])) lonely[a[i]]++;
+                else lonely.Add(a[i], 1);
+            }
+
+            int ret = lonely.First(v => v.Value == 1).Key;
+
+            return ret;
+        }
+
+        static void LonelyInteger()
+        {
+            int res;
+
+            //int _a_size = Convert.ToInt32(Console.ReadLine());
+            int _a_size = 3;
+            int[] _a = new int[_a_size];
+
+            int _a_item;
+            //String move = Console.ReadLine();
+            string move = "1 1 2";
+            String[] move_split = move.Split(' ');
+            for (int _a_i = 0; _a_i < move_split.Length; _a_i++)
+            {
+                _a_item = Convert.ToInt32(move_split[_a_i]);
+                _a[_a_i] = _a_item;
+            }
+            res = lonelyinteger(_a);
+            Console.WriteLine(res);
         }
 
         static void IceCreamParlor()
