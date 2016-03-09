@@ -14,7 +14,58 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            LonelyInteger();
+            MissingNumbers();
+        }
+
+        static void MissingNumbers()
+        {
+            int _a_size = 100000;
+            //_a_size = Convert.ToInt32(Console.ReadLine());
+            int[] _a = new int[_a_size];
+
+            //String sentence = Console.ReadLine();
+            //String sentence = Console.ReadLine();
+            String[] sentence_split = sentence.Split(' ');
+            for (int _a_i = 0; _a_i < sentence_split.Length; _a_i++)
+            {
+                _a[_a_i] = Convert.ToInt32(sentence_split[_a_i]);
+            }
+
+            int _b_size = 100018;
+            //_b_size = Convert.ToInt32(Console.ReadLine());
+            int[] _b = new int[_b_size];
+
+            //sentence = Console.ReadLine();
+            sentence_split = sentence.Split(' ');
+            for (int _b_i = 0; _b_i < sentence_split.Length; _b_i++)
+            {
+                _b[_b_i] = Convert.ToInt32(sentence_split[_b_i]);
+            }
+
+            Array.Sort(_a);
+            Array.Sort(_b);
+
+            //Console.WriteLine(string.Join(" ", _a));
+            //Console.WriteLine(" ");
+            //Console.WriteLine(string.Join(" ", _b));
+
+            int i = 0;
+            int j = 0;
+            int lJ = 0;
+            while (j < _b.Length)
+            {
+                if (i == _a_size)
+                {
+                    if (lJ != _b[j])
+                    {
+                        lJ = _b[j]; Console.Write(_b[j++].ToString() + ' ');
+                    }
+                    else j++;
+                }
+                else if (_a[i] == _b[j]) { i++; j++; }
+                else if (lJ != _b[j]) { lJ = _b[j]; Console.Write(_b[j++].ToString() + ' '); }
+                else j++;
+            }
         }
 
         static int lonelyinteger(int[] a)
