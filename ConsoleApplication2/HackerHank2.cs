@@ -14,7 +14,99 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            MissingNumbers();
+            GridChallenge();
+        }
+
+        static void GridChallenge()
+        {
+            //string[] linesInput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Desktop\input.txt");
+            //string[] linesOutput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Desktop\output.txt");
+            //int input = 0;
+
+            int t = 4;
+            t = Convert.ToInt32(Console.ReadLine());
+            //t = Convert.ToInt32(linesInput[input++]);
+
+            for (int j = 0; j < t; j++)
+            {
+                bool ok = true;
+                int l = 4;
+                l = Convert.ToInt32(Console.ReadLine());
+                //l = Convert.ToInt32(linesInput[input++]);
+
+                char[] matrixA = new char[l];
+                char[] matrixB = new char[l];
+                for (int i = 0; i < l; i++)
+                {
+                    string sentence = Console.ReadLine();
+                    //string sentence = linesInput[input++];
+                    if (ok)
+                    {
+                        for (int k = 0; k < l; k++)
+                        {
+                            matrixB[k] = sentence[k];
+                        }
+
+                        Array.Sort(matrixB);
+                        if (i != 0) 
+                        {
+                            for (int k = 0; k < l; k++)
+                            {
+                                if (matrixA[k] > matrixB[k]) { ok = false; break; }
+                            }
+                        }
+                        Array.Copy(matrixB, matrixA, l);
+                    }
+                }
+
+                if (ok) Console.WriteLine("YES");
+                else Console.WriteLine("NO");
+            }
+        }
+
+        static void ConnectedCellinaGrid()
+        {
+            int m = 4;
+            m = Convert.ToInt32(Console.ReadLine());
+
+            int n = 4;
+            n = Convert.ToInt32(Console.ReadLine());
+
+            int qty = 0;
+            int qtyMax = 0;
+
+            string[][] matrix = new string[m][];
+            for (int j = 0; j < m; j++)
+            {
+                string row = Console.ReadLine();
+                matrix[j] = row.Split(' ');
+            }
+
+            int maxCC = 0;
+            int curX = 0; int curY = 0;
+            for (int j = 0; j < m; j++)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    bool bChange = true;
+                    curX = j;
+                    curY = i;
+                    while (bChange)
+                    {
+                        bChange = false;
+                        if (matrix[curX][curY] == "1" || matrix[curX][curY] == "X")
+                        {
+                            if (curY < n - 1 && matrix[curX][curY + 1] == "1") { bChange = true; matrix[curX][curY + 1] = "X"; qty++; }
+                            else if (curX < m - 1 && curY > 0 && matrix[curX + 1][curY - 1] == "1") { bChange = true; matrix[curX + 1][curY - 1] = "X"; qty++; }
+                            else if (curX < m - 1 && matrix[curX + 1][curY] == "1") { bChange = true; matrix[curX + 1][curY] = "X"; qty++; }
+                            else if (curX < m - 1 && curY < n - 1 && matrix[curX + 1][curY + 1] == "1") { bChange = true; matrix[curX + 1][curY + 1] = "X"; qty++; }
+                            else if (bChange && matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; }
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine(qty);
         }
 
         static void MissingNumbers()
@@ -23,7 +115,7 @@ namespace ConsoleApplication2
             //_a_size = Convert.ToInt32(Console.ReadLine());
             int[] _a = new int[_a_size];
 
-            //String sentence = Console.ReadLine();
+            String sentence = Console.ReadLine();
             //String sentence = Console.ReadLine();
             String[] sentence_split = sentence.Split(' ');
             for (int _a_i = 0; _a_i < sentence_split.Length; _a_i++)
