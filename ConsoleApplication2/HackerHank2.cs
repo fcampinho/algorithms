@@ -14,7 +14,31 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            GridChallenge();
+            JimandtheOrders();
+        }
+
+        static void JimandtheOrders()
+        {
+            int t;
+            t = Convert.ToInt32(Console.ReadLine());
+
+            Dictionary<int, string> orders = new Dictionary<int, string>();
+            for (int j = 0; j < t; j++)
+            {
+                string order = Console.ReadLine();
+                int time = Convert.ToInt32(order.Split(' ')[0]);
+                int duration = Convert.ToInt32(order.Split(' ')[1]);
+
+                int done = time + duration;
+                if (orders.Keys.Contains(done)) orders[done] += " " + (j + 1).ToString();
+                else orders.Add(done, (j + 1).ToString());
+            }
+
+            var final = orders.OrderBy(o => o.Key);
+            foreach (var item in final)
+            {
+                Console.Write(item.Value + " ");
+            }
         }
 
         static void GridChallenge()
@@ -48,7 +72,7 @@ namespace ConsoleApplication2
                         }
 
                         Array.Sort(matrixB);
-                        if (i != 0) 
+                        if (i != 0)
                         {
                             for (int k = 0; k < l; k++)
                             {
