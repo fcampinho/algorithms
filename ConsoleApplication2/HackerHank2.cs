@@ -14,7 +14,59 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            JimandtheOrders();
+            SherlockandMiniMax();
+        }
+
+        static void SherlockandMiniMax()
+        {
+            int t;
+            t = Convert.ToInt32(Console.ReadLine());
+
+            string[] st = Console.ReadLine().Split(' ');
+            int[] arr = new int[t];
+
+            for (int i = 0; i < t; i++)
+                arr[i] = Convert.ToInt32(st[i]);
+
+            st = Console.ReadLine().Split(' ');
+            int P = Convert.ToInt32(st[0]);
+            int Q = Convert.ToInt32(st[1]);
+
+            if (arr.Length == 1) { Console.WriteLine(P); return; }
+
+            int minP = int.MaxValue;
+            int minQ = int.MaxValue;
+            for (int i = 0; i < t; i++)
+            {
+                minP = Math.Min(minP, Math.Abs(arr[i] - P));
+                minQ = Math.Min(minQ, Math.Abs(arr[i] - Q));
+            }
+
+            Console.WriteLine( minP > minQ ? P : Q);
+        }
+
+        static void MarkandToys()
+        {
+            int N; int K;
+            string[] start = Console.ReadLine().Split(' ');
+            N = Convert.ToInt32(start[0]);
+            K = Convert.ToInt32(start[1]);
+
+            string[] stToys = Console.ReadLine().Split(' ');
+            int[] toys = new int[N];
+
+            for (int i = 0; i < N; i++)
+                toys[i] = Convert.ToInt32(stToys[i]);
+
+            Array.Sort(toys);
+            int sumToys = 0; int qtyToys = 0;
+            for (int j = 0; j < N; j++)
+            {
+                if (sumToys + toys[j] <= K) { sumToys += toys[j]; qtyToys++; }
+                else break;
+            }
+
+            Console.WriteLine(qtyToys);
         }
 
         static void JimandtheOrders()
