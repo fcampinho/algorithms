@@ -14,7 +14,42 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            SherlockandMiniMax();
+            LisasWorkbook();
+        }
+
+        static void LisasWorkbook()
+        {
+            string init = Console.ReadLine();
+            int n;
+            n = Convert.ToInt32(init.Split(' ')[0]);
+
+            int k;
+            k = Convert.ToInt32(init.Split(' ')[1]);
+
+            string[] st = Console.ReadLine().Split(' ');
+            int qtyAsk;
+
+            int page = 1;
+            int qtySpecial = 0;
+            for (int chapter = 0; chapter < n; chapter++)
+            {
+                int minQuestion = 0; int maxQuestion = 0;
+                qtyAsk = Convert.ToInt32(st[chapter]);
+                int loop = (qtyAsk / k) + (qtyAsk % k == 0 ? 0 : 1);
+                for (int i = 1; i <= loop; i++)
+                {
+                    minQuestion = maxQuestion + 1;
+                    maxQuestion = minQuestion + Math.Min(qtyAsk, k) - 1;
+                    qtyAsk -= k;
+                    if (page >= minQuestion && page <= maxQuestion) qtySpecial++;
+
+                    page++;
+                }
+
+            }
+
+            Console.WriteLine(qtySpecial);
+
         }
 
         static void SherlockandMiniMax()
@@ -42,7 +77,7 @@ namespace ConsoleApplication2
                 minQ = Math.Min(minQ, Math.Abs(arr[i] - Q));
             }
 
-            Console.WriteLine( minP > minQ ? P : Q);
+            Console.WriteLine(minP > minQ ? P : Q);
         }
 
         static void MarkandToys()
