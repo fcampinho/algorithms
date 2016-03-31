@@ -14,7 +14,28 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            LisasWorkbook();
+            ConnectedCellinaGrid();
+        }
+
+        static void LarrysArray()
+        {
+            int t;
+            t = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < t; i++)
+            {
+                int n;
+                n = Convert.ToInt32(Console.ReadLine());
+
+                int[] arr = new int[n];
+                string[] st = Console.ReadLine().Split(' ');
+
+                for (int j = 0; j < n; j++)
+                {
+                    arr[i] = Convert.ToInt32(st[j]);
+                }
+
+            }
         }
 
         static void LisasWorkbook()
@@ -177,14 +198,16 @@ namespace ConsoleApplication2
 
         static void ConnectedCellinaGrid()
         {
-            int m = 4;
+            int m;
             m = Convert.ToInt32(Console.ReadLine());
 
-            int n = 4;
+            int n;
             n = Convert.ToInt32(Console.ReadLine());
 
             int qty = 0;
             int qtyMax = 0;
+
+            Stack<int[]> heap = new Stack<int[]>();
 
             string[][] matrix = new string[m][];
             for (int j = 0; j < m; j++)
@@ -193,31 +216,51 @@ namespace ConsoleApplication2
                 matrix[j] = row.Split(' ');
             }
 
-            int maxCC = 0;
-            int curX = 0; int curY = 0;
+            int curX = 0; int curY = 0; int tCurX = 0; int tCurY = 0;
             for (int j = 0; j < m; j++)
             {
                 for (int i = 0; i < n; i++)
                 {
-                    bool bChange = true;
+                    bool bChange = true; bool bReturn = false;
                     curX = j;
                     curY = i;
                     while (bChange)
                     {
                         bChange = false;
-                        if (matrix[curX][curY] == "1" || matrix[curX][curY] == "X")
+                        if (matrix[curX][curY] == "1" || bReturn)
                         {
-                            if (curY < n - 1 && matrix[curX][curY + 1] == "1") { bChange = true; matrix[curX][curY + 1] = "X"; qty++; }
-                            else if (curX < m - 1 && curY > 0 && matrix[curX + 1][curY - 1] == "1") { bChange = true; matrix[curX + 1][curY - 1] = "X"; qty++; }
-                            else if (curX < m - 1 && matrix[curX + 1][curY] == "1") { bChange = true; matrix[curX + 1][curY] = "X"; qty++; }
-                            else if (curX < m - 1 && curY < n - 1 && matrix[curX + 1][curY + 1] == "1") { bChange = true; matrix[curX + 1][curY + 1] = "X"; qty++; }
-                            else if (bChange && matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; }
+                            qtyMax = Math.Max(1, qtyMax);
+                            if (curY < n - 1 && matrix[curX][curY + 1] == "1") { bChange = true; tCurX = curX; tCurY = curY + 1; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Right
+                            else if (curX < m - 1 && curY < n - 1 && matrix[curX + 1][curY + 1] == "1") { bChange = true; tCurX = curX + 1; tCurY = curY + 1; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Right-Down
+                            else if (curX < m - 1 && matrix[curX + 1][curY] == "1") { bChange = true; tCurX = curX + 1; tCurY = curY; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Down
+                            else if (curX < m - 1 && curY > 0 && matrix[curX + 1][curY - 1] == "1") { bChange = true; tCurX = curX + 1; tCurY = curY - 1; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Left-Down
+                            else if (curY > 0 && matrix[curX][curY - 1] == "1") { bChange = true; tCurX = curX; tCurY = curY - 1; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Left
+                            else if (curX > 0 && curY > 0 && matrix[curX - 1][curY - 1] == "1") { bChange = true; tCurX = curX - 1; tCurY = curY - 1; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Top-Left
+                            else if (curX > 0 && matrix[curX - 1][curY] == "1") { bChange = true; tCurX = curX - 1; tCurY = curY; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Top
+                            else if (curX > 0 && curY < n - 1 && matrix[curX - 1][curY + 1] == "1") { bChange = true; tCurX = curX - 1; tCurY = curY + 1; if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; } } //Top-Right
+
+                            if (bChange) { heap.Push(new int[] { curX, curY }); curX = tCurX; curY = tCurY; bReturn = false; }
+                            else if (heap.Count > 0)
+                            {
+                                if (matrix[curX][curY] == "1") { matrix[curX][curY] = "X"; qty++; }
+                                curX = heap.Peek()[0]; curY = heap.Peek()[1];
+                                bChange = true;
+                                if (bReturn) heap.Pop();
+                                bReturn = true;
+                            }
+                            else
+                            {
+                                qty = 0;
+                                bReturn = false;
+                            }
                         }
+
+                        qtyMax = Math.Max(qtyMax, qty);
                     }
                 }
             }
 
-            Console.WriteLine(qty);
+            Console.WriteLine(qtyMax);
         }
 
         static void MissingNumbers()
@@ -623,6 +666,8 @@ namespace ConsoleApplication2
         }
 
         static void quicksort(ref int[] A, int lo, int hi)
+
+
         {
             if (lo < hi)
             {
