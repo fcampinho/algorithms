@@ -15,7 +15,7 @@ namespace ConsoleApplication2
             //1 3 9 8 2 7 5
             //bool p = palindrome("ciicv");
             //insertionSort2(new int[] { 2, 4, 3, 5, 6, 1 });
-            CountingSort1();
+            ManasaandStones();
         }
 
         //String S = input string
@@ -988,36 +988,31 @@ namespace ConsoleApplication2
 
         static void ManasaandStones()
         {
-            //int T = Convert.ToInt32(Console.ReadLine());
-            int T = 2;
-            int[] stones = new int[T];
-            int[] step1 = new int[T];
-            int[] step2 = new int[T];
-
-            int[] fator = new int[T];
-            int[] result = new int[T];
-            //for (int i = 0; i < T; i++)
-            //{
-            //    stones[i] = Convert.ToInt32(Console.ReadLine());
-            //    step1[i] = Convert.ToInt32(Console.ReadLine());
-            //    step2[i] = Convert.ToInt32(Console.ReadLine());
-            //}
-
-            stones[0] = 3;
-            stones[1] = 4;
-            step1[0] = 1;
-            step1[1] = 10;
-            step2[0] = 2;
-            step2[1] = 100;
+            int T = Convert.ToInt32(Console.ReadLine());
 
             for (int t = 0; t < T; t++)
-                for (int s = 0; s <= stones[t]; s++)
-                {
+            {
+                int stones = Convert.ToInt32(Console.ReadLine());
+                int jump1 = Convert.ToInt32(Console.ReadLine());
+                int jump2 = Convert.ToInt32(Console.ReadLine());
 
+                int sum = 0;
+                string results = "";
+                int limit = stones;
+                for (int i = 0; i < stones; i++)
+                {
+                    sum = 0;
+                    for (int j = 1; j < stones; j++)
+                    {
+                        if (j < limit) sum += jump1;
+                        else sum += jump2;
+                    }
+                    limit -= 1;
+                    results += sum.ToString() + " ";
                 }
 
-
-
+                Console.WriteLine(results.TrimEnd());
+            }
         }
 
         static void CavityMap()

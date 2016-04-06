@@ -14,7 +14,7 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            ConnectedCellinaGrid();
+            LarrysArray();
         }
 
         static void LarrysArray()
@@ -32,9 +32,29 @@ namespace ConsoleApplication2
 
                 for (int j = 0; j < n; j++)
                 {
-                    arr[i] = Convert.ToInt32(st[j]);
+                    arr[j] = Convert.ToInt32(st[j]);
                 }
 
+                int p = 0; int minP = int.MaxValue; int temp = 0;
+                bool impediment = false; bool change = false;
+                while (p < n - 2)
+                {
+                    if (arr[p] < arr[p + 1] && arr[p] < arr[p + 2] && arr[p + 1] < arr[p + 2]) { change = true; }
+                    else if (arr[p] > arr[p + 2] && arr[p] < arr[p + 1]) { temp = arr[p]; arr[p] = arr[p + 2]; arr[p + 2] = arr[p + 1]; arr[p + 1] = temp; change = true; } //rotaciona 2
+                    else if (arr[p] > arr[p + 2] && arr[p + 1] > arr[p + 2]) { temp = arr[p]; arr[p] = arr[p + 2]; arr[p + 2] = arr[p + 1]; arr[p + 1] = temp; change = true; } //rotaciona 2
+                    else if (arr[p] > arr[p + 2] && arr[p + 1] < arr[p + 2]) { temp = arr[p]; arr[p] = arr[p + 1]; arr[p + 1] = arr[p + 2]; arr[p + 2] = temp; change = true; } //rotaciona 1
+                    else if (arr[p] > arr[p + 1]) { temp = arr[p]; arr[p] = arr[p + 1]; arr[p + 1] = arr[p + 2]; arr[p + 2] = temp; change = true; } //rotaciona 1
+                    else if (arr[p] > arr[p + 1] && arr[p] > arr[p + 2]) { impediment = true; minP = Math.Min(minP, p); change = false; }
+
+                    if (change && p > 1 && arr[p - 2] > arr[p]) { p -= 2; if (impediment && p <= minP) { impediment = false; minP = int.MaxValue; } }
+                    else if (change && p > 0 && arr[p - 1] > arr[p]) { p--; if (impediment && p <= minP) { impediment = false; minP = int.MaxValue; } }
+                    else p++;
+                }
+
+                if (arr[n - 2] > arr[n - 1]) { impediment = true; }
+
+                if (impediment) Console.WriteLine("NO");
+                else Console.WriteLine("YES");
             }
         }
 
