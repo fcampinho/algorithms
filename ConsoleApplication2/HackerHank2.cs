@@ -29,8 +29,10 @@ namespace ConsoleApplication2
                 else G.Add(l[i], 1);
             }
 
-            bool v = false;
-            char C;
+//            40
+//TGATGCCGTCCCCTCAACTTGAGTGCTCCTAATGCGTTGC
+//5
+
 
             bool a = false;
             bool c = false;
@@ -41,7 +43,9 @@ namespace ConsoleApplication2
             int vMin = int.MaxValue; int vMax = int.MinValue;
             int qty = 0;
 
-            foreach (var item in G)
+            bool b = false;
+
+            for (int j = 0; j < T; j++)
             {
                 if (G.ContainsKey('A')) a = true;
                 if (G.ContainsKey('C')) c = true;
@@ -76,41 +80,21 @@ namespace ConsoleApplication2
                 }
                 else { min = 'T'; vMin = 0; }
 
-
-
                 if (vMin != vMax)
                 {
-                    if (vMin == 0) G.Add(min, 1);
-                    else G[min] += 1;
-                    G[max] -= 1;
+                    if (G[l[j]] > 1 && l[j] != min)
+                    {
+                        if (vMin == 0) G.Add(min, 1);
+                        else G[min] += 1;
+
+                        G[l[j]] -= 1;
+                        b = true;
+
+                        qty++;
+                    }
+                    else if (b) qty++;
 
                     vMin = int.MaxValue; vMax = int.MinValue;
-                    qty++;
-                    //if ((vMin % 2 == 0 || vMin == 0) && vMax % 2 == 0)
-                    //{
-                    //    if (vMin == 0) G.Add(min, 2);
-                    //    else G[min] += 2;
-
-                    //    G[max] -= 2;
-                    //}
-                    //else if ((vMin % 2 != 0 || vMin == 0) && vMax % 2 != 0)
-                    //{
-                    //    if (vMin == 0) G.Add(min, 1);
-                    //    else G[min] += 1;
-
-                    //    G[max] -= 1;
-                    //}
-                    //else if ((vMin % 2 != 0 || vMin == 0) && vMax % 2 == 0)
-                    //{
-                    //    if (vMin == 0) G.Add(min, 1);
-                    //    else G[min] += 1;
-
-                    //    G[max] -= 1;
-                    //}
-                }
-                else
-                {
-                    v = true;
                 }
             }
             Console.WriteLine(qty);
