@@ -14,7 +14,106 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            LarrysArray();
+            BearandSteadyGene();
+        }
+
+        static void BearandSteadyGene()
+        {
+            int T;
+            T = Convert.ToInt32(Console.ReadLine());
+            Dictionary<char, int> G = new Dictionary<char, int>();
+            string l = Console.ReadLine();
+            for (int i = 0; i < T; i++)
+            {
+                if (G.ContainsKey(l[i])) { G[l[i]]++; }
+                else G.Add(l[i], 1);
+            }
+
+            bool v = false;
+            char C;
+
+            bool a = false;
+            bool c = false;
+            bool t = false;
+            bool g = false;
+
+            char min = 'B'; char max = 'B';
+            int vMin = int.MaxValue; int vMax = int.MinValue;
+            int qty = 0;
+
+            foreach (var item in G)
+            {
+                if (G.ContainsKey('A')) a = true;
+                if (G.ContainsKey('C')) c = true;
+                if (G.ContainsKey('G')) g = true;
+                if (G.ContainsKey('T')) t = true;
+
+                if (a)
+                {
+                    if (G['A'] > vMax) { vMax = G['A']; max = 'A'; }
+                    if (G['A'] < vMin) { vMin = G['A']; min = 'A'; }
+                }
+                else { min = 'A'; vMin = 0; }
+
+                if (c)
+                {
+                    if (G['C'] > vMax) { vMax = G['C']; max = 'C'; }
+                    if (G['C'] < vMin) { vMin = G['C']; min = 'C'; }
+                }
+                else { min = 'C'; vMin = 0; }
+
+                if (g)
+                {
+                    if (G['G'] > vMax) { vMax = G['G']; max = 'G'; }
+                    if (G['G'] < vMin) { vMin = G['G']; min = 'G'; }
+                }
+                else { min = 'G'; vMin = 0; }
+
+                if (t)
+                {
+                    if (G['T'] > vMax) { vMax = G['T']; max = 'T'; }
+                    if (G['T'] < vMin) { vMin = G['T']; min = 'T'; }
+                }
+                else { min = 'T'; vMin = 0; }
+
+
+
+                if (vMin != vMax)
+                {
+                    if (vMin == 0) G.Add(min, 1);
+                    else G[min] += 1;
+                    G[max] -= 1;
+
+                    vMin = int.MaxValue; vMax = int.MinValue;
+                    qty++;
+                    //if ((vMin % 2 == 0 || vMin == 0) && vMax % 2 == 0)
+                    //{
+                    //    if (vMin == 0) G.Add(min, 2);
+                    //    else G[min] += 2;
+
+                    //    G[max] -= 2;
+                    //}
+                    //else if ((vMin % 2 != 0 || vMin == 0) && vMax % 2 != 0)
+                    //{
+                    //    if (vMin == 0) G.Add(min, 1);
+                    //    else G[min] += 1;
+
+                    //    G[max] -= 1;
+                    //}
+                    //else if ((vMin % 2 != 0 || vMin == 0) && vMax % 2 == 0)
+                    //{
+                    //    if (vMin == 0) G.Add(min, 1);
+                    //    else G[min] += 1;
+
+                    //    G[max] -= 1;
+                    //}
+                }
+                else
+                {
+                    v = true;
+                }
+            }
+            Console.WriteLine(qty);
         }
 
         static void LarrysArray()
@@ -686,6 +785,7 @@ namespace ConsoleApplication2
         }
 
         static void quicksort(ref int[] A, int lo, int hi)
+
 
 
         {
