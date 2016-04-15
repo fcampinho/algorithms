@@ -14,9 +14,52 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            BearandSteadyGene();
+            Twoarrays();
         }
 
+        static void Twoarrays()
+        {
+            int t;
+            t = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < t; i++)
+            {
+                int n; int k;
+                string nk = Console.ReadLine();
+                n = Convert.ToInt32(nk.Split(' ')[0]);
+                k = Convert.ToInt32(nk.Split(' ')[1]);
+
+                int[] arrA = new int[n];
+                string[] st = Console.ReadLine().Split(' ');
+
+                for (int j = 0; j < n; j++)
+                {
+                    arrA[j] = Convert.ToInt32(st[j]);
+                }
+
+                int[] arrB = new int[n];
+                st = Console.ReadLine().Split(' ');
+
+                for (int j = 0; j < n; j++)
+                {
+                    arrB[j] = Convert.ToInt32(st[j]);
+                }
+
+                Array.Sort(arrA);
+                Array.Sort(arrB);
+                Array.Reverse(arrB);
+                bool ok = true;
+
+                for (int m = 0; m < n; m++)
+                {
+                    if (arrA[m] + arrB[m] < k) { ok = false; break; }
+                }
+
+                Console.WriteLine(ok ? "YES" : "NO");
+            }
+        }
+
+        //Undone
         static void BearandSteadyGene()
         {
             int T;
@@ -29,9 +72,9 @@ namespace ConsoleApplication2
                 else G.Add(l[i], 1);
             }
 
-//            40
-//TGATGCCGTCCCCTCAACTTGAGTGCTCCTAATGCGTTGC
-//5
+            //            40
+            //TGATGCCGTCCCCTCAACTTGAGTGCTCCTAATGCGTTGC
+            //5
 
 
             bool a = false;
@@ -769,6 +812,7 @@ namespace ConsoleApplication2
         }
 
         static void quicksort(ref int[] A, int lo, int hi)
+
 
 
 
