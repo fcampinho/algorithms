@@ -14,7 +14,42 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            Twoarrays();
+            PriyankaandToys();
+        }
+
+        static void PriyankaandToys()
+        {
+            int t;
+            t = Convert.ToInt32(Console.ReadLine());
+
+            string nk = Console.ReadLine();
+            string[] arr = nk.Split(' ');
+
+            int[] toys = new int[t]; int i = 0;
+
+            for (i = 0; i < t; i++)
+            {
+                toys[i] = Convert.ToInt32(arr[i]);
+            }
+            Array.Sort(toys);
+
+            int qty = 0;
+
+            i = 0;
+            qty = 0;
+            while (i < t)
+            {
+                for (int j = i + 1; j < t; j++)
+                {
+                    if (toys[j] > toys[i] + 4)
+                    {
+                        qty++; i = j; break;
+                    }
+                    else if (j + 1 == t) { i = t; qty++; }
+                }
+                if (i + 1 == t) { qty++; break; }
+            }
+            Console.WriteLine(qty);
         }
 
         static void Twoarrays()
