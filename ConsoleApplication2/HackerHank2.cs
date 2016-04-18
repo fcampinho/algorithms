@@ -14,7 +14,44 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            PriyankaandToys();
+            MaximizingXOR();
+        }
+
+        static void MaximizingXOR()
+        {
+            int L;
+            L = Convert.ToInt32(Console.ReadLine());
+
+            int R;
+            R = Convert.ToInt32(Console.ReadLine());
+
+            StringBuilder XOR;
+            int Max = 0;
+            for (int i = L; i <= R; i++)
+            {
+                string A = Convert.ToString(i, 2);
+                for (int j = i; j <= R; j++)
+                {
+                    string B = Convert.ToString(j, 2);
+
+                    if (A.Length > B.Length) B = new string('0', A.Length - B.Length) + B;
+                    if (A.Length < B.Length) A = new string('0', B.Length - A.Length) + A;
+
+                    XOR = new StringBuilder();
+                    for (int m = 0; m < A.Length; m++)
+                    {
+                        bool AM = false; bool BM = false;
+                        AM = (A[m] == '1' ? true : false);
+                        BM = (B[m] == '1' ? true : false);
+
+                        XOR.Append((AM ^ BM ? 1 : 0));
+                    }
+
+                    Max = Math.Max(Max, Convert.ToInt32(XOR.ToString(), 2));
+                }
+            }
+
+            Console.WriteLine(Max);
         }
 
         static void PriyankaandToys()
