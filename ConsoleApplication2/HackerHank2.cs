@@ -14,7 +14,49 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            LargestPermutation();
+            GreedyFlorist();
+        }
+
+        static void GreedyFlorist()
+        {
+            int N, K;
+            string NK = Console.ReadLine();
+            string[] NandK = NK.Split(new Char[] { ' ', '\t', '\n' });
+            N = Convert.ToInt32(NandK[0]);
+            K = Convert.ToInt32(NandK[1]);
+
+            int[] C = new int[N];
+
+            string numbers = Console.ReadLine();
+            string[] split = numbers.Split(new Char[] { ' ', '\t', '\n' });
+
+            int i = 0;
+
+
+            foreach (string s in split)
+            {
+                if (s.Trim() != "")
+                {
+                    C[i++] = Convert.ToInt32(s);
+                }
+            }
+
+            int result = 0;
+
+            Array.Sort(C);
+            Array.Reverse(C);
+
+            int mI = 0;
+            int kI = 0;
+
+            for (i = 0; i < N; i++)
+            {
+                result += (1 + mI) * C[i];
+                kI++;
+                if (kI == K) { mI++; kI = 0; }
+            }
+            
+            Console.WriteLine(result);
         }
 
         static void LargestPermutation()
