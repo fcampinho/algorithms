@@ -14,7 +14,64 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            GreedyFlorist();
+            AlmostSorted();
+        }
+
+        static void AlmostSorted()
+        {
+            int N = Convert.ToInt32(Console.ReadLine());
+            bool swap = false;
+            int qtySwap = 0;
+            bool reverse = false;
+            bool breakReverse = false;
+            bool reverseInvalid = false;
+            int pSwapLeft = 0;
+            int pSwapRight = 0;
+            int pReverseLeft = 0;
+            int pReverseRight = 0;
+
+            string[] s = Console.ReadLine().Split(' ');
+            for (int i = 0; i < N - 1; i++)
+            {
+                if (Convert.ToInt32(s[i]) > Convert.ToInt32(s[i + 1]))
+                {
+                    if (!swap) pSwapLeft = i;
+                    swap = true;
+                    pSwapRight = i + 1;
+                    qtySwap++;
+
+                    if (!reverse) pReverseLeft = i;
+                    reverse = true;
+                    pReverseRight = i + 1;
+
+                    if (breakReverse) reverseInvalid = true;
+                }
+                else if (reverse)
+                {
+                    breakReverse = true;
+                }
+            }
+
+
+            if (swap && qtySwap > 2) swap = false;
+            else if (pSwapLeft > 0 && Convert.ToInt32(s[pSwapLeft - 1]) > Convert.ToInt32(s[pSwapRight])) swap = false;
+            else if (Convert.ToInt32(s[pSwapLeft + 1]) < Convert.ToInt32(s[pSwapRight])) swap = false;
+            else if (pSwapRight < N - 1 && Convert.ToInt32(s[pSwapRight + 1]) < Convert.ToInt32(s[pSwapLeft])) swap = false;
+            else if (Convert.ToInt32(s[pSwapRight - 1]) > Convert.ToInt32(s[pSwapLeft])) swap = false;
+
+            if (reverseInvalid) reverse = false;
+            if (pReverseLeft > 0 && Convert.ToInt32(s[pReverseLeft - 1]) > Convert.ToInt32(s[pReverseRight])) reverse = false;
+            if (pReverseRight < N - 1 && Convert.ToInt32(s[pReverseRight + 1]) < Convert.ToInt32(s[pReverseLeft])) reverse = false;
+
+            if (swap)
+            {
+                Console.WriteLine("yes"); Console.WriteLine("swap " + (pSwapLeft + 1) + " " + (pSwapRight + 1));
+            }
+            else if (reverse)
+            {
+                Console.WriteLine("yes"); Console.WriteLine("reverse " + (pReverseLeft + 1) + " " + (pReverseRight + 1));
+            }
+            else if (!swap) Console.WriteLine("no");
         }
 
         static void GreedyFlorist()
@@ -55,7 +112,7 @@ namespace ConsoleApplication2
                 kI++;
                 if (kI == K) { mI++; kI = 0; }
             }
-            
+
             Console.WriteLine(result);
         }
 
@@ -972,6 +1029,9 @@ namespace ConsoleApplication2
         }
 
         static void quicksort(ref int[] A, int lo, int hi)
+
+
+
 
 
 
