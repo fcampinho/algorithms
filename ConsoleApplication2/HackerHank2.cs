@@ -14,7 +14,37 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            AlmostSorted();
+            SherlockandPairs();
+        }
+
+        static void SherlockandPairs()
+        {
+            string[] linesInput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Desktop\input02.txt");
+            int p = 0;
+
+            int t = Convert.ToInt32(linesInput[p]); p++;
+
+            for (int i = 0; i < t; i++)
+            {
+                int n = Convert.ToInt32(linesInput[p]); p++; ;
+                string[] a = linesInput[p].Split(' '); p++;
+
+                Dictionary<int, Int64> d = new Dictionary<int, Int64>();
+                for (int j = 0; j < n; j++)
+                {
+                    if (d.ContainsKey(Convert.ToInt32(a[j]))) d[Convert.ToInt32(a[j])]++;
+                    else d.Add(Convert.ToInt32(a[j]), 1);
+                }
+
+                Int64 qty = 0;
+                foreach (var item in d)
+                {
+                    if (item.Value > 1)
+                        qty += item.Value * (item.Value - 1);
+                }
+
+                Console.WriteLine(qty);
+            }
         }
 
         static void AlmostSorted()
