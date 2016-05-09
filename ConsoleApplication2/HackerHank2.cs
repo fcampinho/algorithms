@@ -14,7 +14,118 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            SherlockandPairs();
+            AlgorithmicCrush();
+        }
+
+        static void AlgorithmicCrush()
+        {
+
+            string xy = Console.ReadLine();
+            int x = Convert.ToInt32(xy.Split(' ')[0]);
+            int y = Convert.ToInt32(xy.Split(' ')[1]);
+
+            Int64[] l = new Int64[x];
+            Int64 minJ = Int64.MaxValue;
+            Int64 maxJ = Int64.MinValue;
+
+            for (int i = 0; i < y; i++)
+            {
+                string abk = Console.ReadLine();
+                Int64 a = Convert.ToInt64(abk.Split(' ')[0]);
+                Int64 b = Convert.ToInt64(abk.Split(' ')[1]);
+                Int64 k = Convert.ToInt64(abk.Split(' ')[2]);
+
+                minJ = Math.Min(minJ, a);
+                maxJ = Math.Max(maxJ, b);
+
+                l[a - 1] += k;
+                if (b < x) l[b] -= k;
+            }
+
+            Int64 acum = 0;
+            Int64 MaxAcum = 0;
+            for (Int64 i = minJ - 1; i < maxJ; i++)
+            {
+                acum += l[i];
+                MaxAcum = Math.Max(acum, MaxAcum);
+            }
+
+            Console.WriteLine(MaxAcum);
+
+        }
+
+        static void CuttingBoards()
+        {
+            //Console.WriteLine(42 % (10 ^ 9 + 7));
+            int p = 0;
+            //string[] linesInput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Desktop\input.txt");
+            int t = Convert.ToInt32(Console.ReadLine());
+            //int t = Convert.ToInt32(linesInput[p]); p++;
+
+            for (int i = 0; i < t; i++)
+            {
+                string xy = Console.ReadLine();
+                //string xy = linesInput[p]; p++;
+                int x = Convert.ToInt32(xy.Split(' ')[1]);
+                int y = Convert.ToInt32(xy.Split(' ')[0]);
+
+                string[] cstrY = Console.ReadLine().Split(' ');
+                //string[] cstrY = linesInput[p].Split(' '); p++;
+                Int64[] cy = new Int64[y - 1];
+                for (int j = 0; j < y - 1; j++)
+                {
+                    cy[j] = Convert.ToInt32(cstrY[j]);
+                }
+
+                string[] cstrX = Console.ReadLine().Split(' ');
+                //string[] cstrX = linesInput[p].Split(' '); p++;
+                Int64[] cx = new Int64[x - 1];
+                for (int j = 0; j < x - 1; j++)
+                {
+                    cx[j] = Convert.ToInt32(cstrX[j]);
+                }
+
+                Array.Sort(cx);
+                Array.Sort(cy);
+                Array.Reverse(cx);
+                Array.Reverse(cy);
+
+                int xSeg = 1; int ySeg = 1;
+                int m = 0; int n = 0;
+                BigInteger module = (Int64)Math.Pow(10, 9) + 7;
+                //Int64 cost = 0;
+                BigInteger cost = new BigInteger(0);
+                while (n < x - 1 || m < y - 1)
+                {
+                    if (n == x - 1)
+                    {
+                        cost += cy[m] * xSeg;
+                        ySeg++;
+                        m++;
+                    }
+                    else if (m == y - 1)
+                    {
+                        cost += cx[n] * ySeg;
+                        xSeg++;
+                        n++;
+
+                    }
+                    else if (cx[n] > cy[m])
+                    {
+                        cost += cx[n] * ySeg;
+                        xSeg++;
+                        n++;
+                    }
+                    else
+                    {
+                        cost += cy[m] * xSeg;
+                        ySeg++;
+                        m++;
+                    }
+                }
+
+                Console.WriteLine(cost % module);
+            }
         }
 
         static void SherlockandPairs()
