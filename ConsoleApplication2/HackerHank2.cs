@@ -14,7 +14,84 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            AlgorithmicCrush();
+            //TheTimeinWords();
+            Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
+        }
+
+        static Int32  Pairs(int[] a, int k)
+        {
+            Array.Sort(a);
+
+            int i = 0;
+            int j = i + 1;
+            int qty = 0;
+            while (j < a.Length)
+            {
+                if (a[j] - a[i] == k) { qty++; i++; j++; }
+                else if (a[j] - a[i] > k) { i++; }
+                else j++;
+            }
+
+            return qty;
+        }
+
+        static void TheTimeinWords()
+        {
+            int h = Convert.ToInt32(Console.ReadLine());
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            Dictionary<int, string> words = new Dictionary<int, string>();
+
+            words.Add(1, "one");
+            words.Add(2, "tow");
+            words.Add(3, "three");
+            words.Add(4, "four");
+            words.Add(5, "five");
+            words.Add(6, "six");
+            words.Add(7, "seven");
+            words.Add(8, "eight");
+            words.Add(9, "nine");
+            words.Add(10, "ten");
+            words.Add(11, "eleven");
+            words.Add(12, "twelve");
+            words.Add(13, "thirteen");
+            words.Add(14, "fourteen");
+            words.Add(15, "quarter");
+            words.Add(16, "sixteen");
+            words.Add(17, "seventeen");
+            words.Add(18, "eighteen");
+            words.Add(19, "nineteen");
+            words.Add(20, "twenty");
+            words.Add(30, "half");
+
+            string strHour = "";
+
+            if (m == 0)
+            {
+                strHour = words[h] + " o' clock";
+            }
+            else if (m <= 30)
+            {
+                if (m > 20 && m != 30) strHour = words[20] + " " + words[m - 20] + " minutes";
+                else if (m != 15 && m != 30) strHour = words[m] + " minutes";
+                else strHour = words[m];
+
+                strHour += " past ";
+                strHour += words[h];
+            }
+            else
+            {
+                m = 60 - m;
+                if (m > 20) strHour = words[20] + " " + words[m - 20] + " minutes";
+                else if (m != 15) strHour = words[m] + " minutes";
+                else strHour = words[m];
+
+                strHour += " to ";
+                strHour += words[h + 1];
+            }
+
+            Console.WriteLine(strHour);
+
         }
 
         static void AlgorithmicCrush()
