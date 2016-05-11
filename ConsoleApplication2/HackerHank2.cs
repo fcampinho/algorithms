@@ -14,11 +14,91 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            //TheTimeinWords();
-            Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
+            ExtraLongFactorials();
+            //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
         }
 
-        static Int32  Pairs(int[] a, int k)
+        static void ExtraLongFactorials()
+        {
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            BigInteger fat = 0;
+            BigInteger sum = n;
+
+            for (int i = n - 1; i > 1; i--)
+            {
+
+                fat = i;
+                sum = sum * fat;
+            }
+
+            Console.WriteLine(sum);
+        }
+
+        static void MaxMin()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int k = Convert.ToInt32(Console.ReadLine());
+
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = (Convert.ToInt32(Console.ReadLine()));
+            }
+
+            Array.Sort(a);
+            int minDiff = int.MaxValue;
+            for (int j =0; j < n - k + 1; j++)
+            {
+                minDiff = Math.Min(a[j + k - 1] - a[j], minDiff);
+            }
+
+            Console.WriteLine(minDiff);
+        }
+
+        static void BeautifulPairs()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            string[] strA = Console.ReadLine().Split(' ');
+            string[] strB = Console.ReadLine().Split(' ');
+
+            Dictionary<int, int> ad = new Dictionary<int, int>();
+            Dictionary<int, int> bd = new Dictionary<int, int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                if (ad.ContainsKey(Convert.ToInt32(strA[i]))) ad[Convert.ToInt32(strA[i])]++;
+                else ad.Add(Convert.ToInt32(strA[i]), 1);
+
+                if (bd.ContainsKey(Convert.ToInt32(strB[i]))) bd[Convert.ToInt32(strB[i])]++;
+                else bd.Add(Convert.ToInt32(strB[i]), 1);
+            }
+
+            int qtyPair = 0;
+            for (int j = 0; j < ad.Count; j++)
+            {
+                int key = ad.ElementAt(j).Key;
+                if (bd.ContainsKey(key))
+                {
+                    if (bd[key] == ad[key])
+                    {
+                        qtyPair += ad[key];
+                    }
+                    else
+                    {
+                        qtyPair += Math.Min(ad[key], bd[key]);
+                    }
+                }
+            }
+
+            if (qtyPair == n) qtyPair -= 1;
+            else qtyPair += 1;
+
+            Console.WriteLine(qtyPair);
+        }
+
+        static Int32 Pairs(int[] a, int k)
         {
             Array.Sort(a);
 
