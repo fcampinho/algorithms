@@ -15,7 +15,7 @@ namespace ConsoleApplication2
             //1 3 9 8 2 7 5
             //bool p = palindrome("ciicv");
             //insertionSort2(new int[] { 2, 4, 3, 5, 6, 1 });
-            ManasaandStones();
+            TheGridSearch();
         }
 
         //String S = input string
@@ -1145,18 +1145,22 @@ namespace ConsoleApplication2
 
         static void TheGridSearch()
         {
-            int t = 1;
+            string[] linesInput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Desktop\thegridsearchinput.txt");
+            string[] linesOutput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Desktop\thegridsearchoutput.txt");
+            int input = 0;
+
+            int t = Convert.ToInt32(linesInput[input++]);
             for (int a0 = 0; a0 < t; a0++)
             {
-                string[] tokens_R = "4 6".Split(' ');
+                string[] tokens_R = linesInput[input++].Split(' ');
                 int R = Convert.ToInt32(tokens_R[0]);
                 int C = Convert.ToInt32(tokens_R[1]);
                 string[] G = new string[R];
 
-                G[0] = "123412";
-                G[1] = "561212";
-                G[2] = "123634";
-                G[3] = "781288";
+                //G[0] = "123412";
+                //G[1] = "561212";
+                //G[2] = "123634";
+                //G[3] = "781288";
 
                 //G[0] = "7283455864";
                 //G[1] = "6731158619";
@@ -1172,7 +1176,11 @@ namespace ConsoleApplication2
                 //{
                 //    G[G_i] = Console.ReadLine();
                 //}
-                string[] tokens_r = "2 2".Split(' ');
+                for (int G_i = 0; G_i < R; G_i++)
+                {
+                    G[G_i] = linesInput[input++];
+                }
+                string[] tokens_r = linesInput[input++].Split(' ');
                 int r = Convert.ToInt32(tokens_r[0]);
                 int c = Convert.ToInt32(tokens_r[1]);
                 string[] P = new string[r];
@@ -1180,18 +1188,22 @@ namespace ConsoleApplication2
                 //P[1] = "3845";
                 //P[2] = "3530";
 
-                P[0] = "12";
-                P[1] = "34";
+                //P[0] = "12";
+                //P[1] = "34";
 
                 //for (int P_i = 0; P_i < r; P_i++)
                 //{
                 //    P[P_i] = Console.ReadLine();
                 //}
+                for (int P_i = 0; P_i < r; P_i++)
+                {
+                    P[P_i] = linesInput[input++];
+                }
 
                 bool bMatch = false;
                 int rV = -1;
                 int i = 0;
-                while (i < R - r)
+                while (i < R - r + 1)
                 {
                     rV = G[i].IndexOf(P[0], rV + 1);
                     if (rV != -1)

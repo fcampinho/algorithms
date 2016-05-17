@@ -18,6 +18,40 @@ namespace ConsoleApplication2
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
         }
 
+        static void ChiefHopper()
+        {
+            int N = Convert.ToInt32(Console.ReadLine());
+
+            int botEnergy = 0;
+            int[] height = new int[N];
+
+            //if (height > botEnergy) botEnergy = botEnergy - (height - botEnergy);
+            //else botEnergy = botEnergy + (botEnergy - height);
+
+            string[] strHeight = Console.ReadLine().Split(' ');
+
+            int i = 0;
+            while (i > 0)
+            {
+                //height[i] = Convert.ToInt32(strHeight[i]);
+
+
+            }
+
+            //5
+            //0 3 3 4 10 2 4
+
+            //10 4 3 2 = 6 + 1 + 2
+
+            //4
+            //0 3 4 3 2 4
+
+            //4 4 3 3 2
+
+            //1 1 + 2 = 4
+
+        }
+
         static void ExtraLongFactorials()
         {
 
