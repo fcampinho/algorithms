@@ -14,7 +14,7 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            LargestPermutation();
+            SherlockandMiniMax();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
         }
 
@@ -781,24 +781,51 @@ namespace ConsoleApplication2
             string[] st = Console.ReadLine().Split(' ');
             int[] arr = new int[t];
 
-            for (int i = 0; i < t; i++)
-                arr[i] = Convert.ToInt32(st[i]);
+            for (int z = 0; z < t; z++)
+                arr[z] = Convert.ToInt32(st[z]);
+
+            Array.Sort(arr);
 
             st = Console.ReadLine().Split(' ');
             int P = Convert.ToInt32(st[0]);
             int Q = Convert.ToInt32(st[1]);
+            int M = 0;
 
             if (arr.Length == 1) { Console.WriteLine(P); return; }
 
-            int minP = int.MaxValue;
-            int minQ = int.MaxValue;
-            for (int i = 0; i < t; i++)
+            int minDiff = int.MaxValue;
+            int maxDiff = int.MinValue;
+
+            int j = 0;
+            int i = P;
+
+            while (j < t && arr[j] < i)
             {
-                minP = Math.Min(minP, Math.Abs(arr[i] - P));
-                minQ = Math.Min(minQ, Math.Abs(arr[i] - Q));
+                j++;
             }
 
-            Console.WriteLine(minP > minQ ? P : Q);
+            if (j > 0) minDiff = Math.Abs(arr[j - 1] - i);
+            if (j < t) minDiff = Math.Min(minDiff, Math.Abs(arr[j] - i));
+
+            while (i <= Q)
+            {
+                if (j > 0 && j < t) i = Math.Min((arr[j - 1] + arr[j]) / 2, Q);
+                else if (j == t) i = Q;
+
+                if (j > 0) minDiff = Math.Abs(arr[j - 1] - i);
+                if (j < t) minDiff = Math.Min(minDiff, Math.Abs(arr[j] - i));
+
+                if (maxDiff < minDiff)
+                {
+                    maxDiff = minDiff;
+                    M = i;
+                }
+
+                j++;
+                i++;
+            }
+
+            Console.WriteLine(M);
         }
 
         static void MarkandToys()
