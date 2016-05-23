@@ -14,8 +14,62 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            ChiefHopper();
+            TeamFormation();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
+        }
+
+        static void TeamFormation()
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+
+            for (int j = 0; j < t; j++)
+            {
+                string[] arrStr = Console.ReadLine().Split(' ');
+                int l = Convert.ToInt32(arrStr[0]);
+
+                int[] a = new int[l];
+
+                for (int v = 1; v <= l; v++)
+                {
+                    a[v - 1] = Convert.ToInt32(arrStr[v]);
+                }
+
+                Array.Sort(a);
+
+                Dictionary<int, int> team = new Dictionary<int, int>();
+                Dictionary<int, int> qtyTeam = new Dictionary<int, int>();
+
+                team.Add(0, a[l - 1]);
+                qtyTeam.Add(0, 1);
+                int valid = 1;
+
+                int i = l - 2;
+                while (i >= 0)
+                {
+                    bool fValid = false;
+                    for (int m = 0; m < valid; m++)
+                    {
+                        if (team[m] - 1 == a[i])
+                        {
+                            team[m] = a[i];
+                            qtyTeam[m]++;
+                            fValid = true;
+                            break;
+                        }
+                    }
+
+                    if (!fValid)
+                    {
+                        team.Add(valid, a[i]);
+                        qtyTeam.Add(valid, 1);
+                        valid++;
+                    }
+
+                    i--;
+                }
+
+                Console.WriteLine(qtyTeam.Min(min => min.Value));
+            }
         }
 
         static void ChiefHopper()
