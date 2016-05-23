@@ -14,7 +14,7 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            TeamFormation();
+            SherlockandArray();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
         }
 
@@ -1153,16 +1153,10 @@ namespace ConsoleApplication2
 
         static void SherlockandArray()
         {
-            int t = 1;
-            //t = Convert.ToInt32(Console.ReadLine());
-
+            int t = Convert.ToInt32(Console.ReadLine());
             for (int j = 0; j < t; j++)
             {
-                int _ar_size = 3;
-                //_ar_size = Convert.ToInt32(Console.ReadLine());
-
-                if (_ar_size == 1) { Console.WriteLine("YES"); continue; }
-                else if (_ar_size == 2) { Console.WriteLine("NO"); continue; }
+                int _ar_size = Convert.ToInt32(Console.ReadLine()); ;
 
                 int[] left = new int[_ar_size];
                 int[] right = new int[_ar_size];
@@ -1172,9 +1166,11 @@ namespace ConsoleApplication2
                 int acumRight = 0;
                 bool equal = false;
 
-                //String elements = Console.ReadLine();
-                String elements = "1 4 1";
+                String elements = Console.ReadLine();
                 String[] split_elements = elements.Split(' ');
+
+                if (_ar_size == 1) { Console.WriteLine("YES"); continue; }
+                else if (_ar_size == 2) { Console.WriteLine("NO"); continue; }
 
                 for (int _ar_i = 0; _ar_i < _ar_size; _ar_i++)
                 {
