@@ -14,7 +14,7 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            SherlockandArray();
+            SherlockandWatson();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
         }
 
@@ -1193,10 +1193,12 @@ namespace ConsoleApplication2
 
         static void SherlockandWatson()
         {
-            //String elements = Console.ReadLine();
-            //string elements = "51 51 100";
-            //string elements = "72 74 500";
-            string elements = "3 2 3";
+            //int p = 0; int b = 0;
+            //string[] linesInput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Documents\HackerHank\SherlockandWatsonInput.txt");
+            //string[] linesOutput = System.IO.File.ReadAllLines(@"C:\Users\fcampinho\Documents\HackerHank\SherlockandWatsonOutput.txt");
+
+            String elements = Console.ReadLine();
+            //string elements = linesInput[p++];
             String[] split_init = elements.Split(' ');
 
             int n = Convert.ToInt32(split_init[0]);
@@ -1204,10 +1206,8 @@ namespace ConsoleApplication2
             int q = Convert.ToInt32(split_init[2]);
 
             int[] _ar = new int[n];
-            //elements = Console.ReadLine();
-            //elements = "39356 87674 16667 54260 43958 70429 53682 6169 87496 66190 90286 4912 44792 65142 36183 43856 77633 38902 1407 88185 80399 72940 97555 23941 96271 49288 27021 32032 75662 69161 33581 15017 56835 66599 69277 17144 37027 39310 23312 24523 5499 13597 45786 66642 95090 98320 26849 72722 37221 28255 60906";
-            //elements = "596 53804 13567 538 55791 75204 15873 98117 41061 49377 64425 62232 49127 20342 99276 24860 25787 81841 97359 7404 34400 37174 73359 257 88477 28020 25920 62652 3228 20401 99722 20175 74204 29640 20713 29994 4843 52937 28110 45903 18665 92535 24487 67791 29228 23762 9002 71367 21955 6360 78770 56354 59886 68480 72962 48362 96499 15233 11013 99726 35633 27086 36253 9836 73077 56965 39830 77919 26253 84291 40174 44918";
-            elements = "1 2 3";
+            elements = Console.ReadLine();
+            //elements = linesInput[p++];
             String[] split_elements = elements.Split(' ');
 
             for (int _ar_i = 0; _ar_i < n; _ar_i++)
@@ -1220,14 +1220,15 @@ namespace ConsoleApplication2
 
             for (int i = 0; i < q; i++)
             {
-                //ni = Convert.ToInt32(Console.ReadLine());
-                ni = 0;
+                ni = Convert.ToInt32(Console.ReadLine());
+                //ni = Convert.ToInt32(linesInput[p++]);
                 vi = ni - k;
                 if (vi < 0)
                 {
                     int f = Math.Abs(vi);
                     if (Math.Abs(vi) > n) f = Math.Abs(vi) % (n);
-                    vi = n - f;
+                    if (f == 0) vi = 0; 
+                    else vi = n - f;
                 }
                 Console.WriteLine(_ar[vi]);
             }
