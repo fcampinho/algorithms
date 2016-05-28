@@ -14,8 +14,65 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            SherlockandWatson();
+            Countergame();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
+        }
+
+        static void Countergame()
+        {
+            Int32 T = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < T; i++)
+            {
+                int counter = 0;
+                BigInteger N;
+                BigInteger power = 2;
+                BigInteger sub = 2;
+
+                BigInteger.TryParse(Console.ReadLine(), out N);
+
+                while (sub < N)
+                {
+                    sub = sub * power;
+                }
+                if (sub > N) sub /= power;
+
+                while (N > 1)
+                {
+                    if (N.IsPowerOfTwo) N = N / power;
+                    else
+                    {
+                        while (sub > N)
+                        {
+                            sub /= power;
+                        }
+
+                        N = N - sub;
+                    }
+                    counter++;
+                }
+
+                if (counter == 0) Console.WriteLine("Richard");
+                else Console.WriteLine(counter % 2 == 0 ? "Richard" : "Louise");
+            }
+        }
+
+        static void Flippingbits()
+        {
+            Int32 T = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < T; i++)
+            {
+                UInt32 n = Convert.ToUInt32(Console.ReadLine());
+                string bitStr = Convert.ToString(n, 2);
+
+                bitStr = bitStr.Replace('0', '!');
+                bitStr = bitStr.Replace('1', '0');
+                bitStr = bitStr.Replace('!', '1');
+                bitStr = new String('1', 32 - bitStr.Length) + bitStr;
+
+                Console.WriteLine(Convert.ToUInt32(bitStr, 2));
+            }
         }
 
         static void TeamFormation()
@@ -1227,7 +1284,7 @@ namespace ConsoleApplication2
                 {
                     int f = Math.Abs(vi);
                     if (Math.Abs(vi) > n) f = Math.Abs(vi) % (n);
-                    if (f == 0) vi = 0; 
+                    if (f == 0) vi = 0;
                     else vi = n - f;
                 }
                 Console.WriteLine(_ar[vi]);
