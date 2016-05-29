@@ -14,8 +14,28 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            Countergame();
+            ANDproduct();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
+        }
+
+        static void ANDproduct()
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+
+            for (int j = 0; j < t; j++)
+            {
+                string AB = Console.ReadLine();
+                UInt64 A = Convert.ToUInt64(AB.Split(' ')[0]);
+                UInt64 B = Convert.ToUInt64(AB.Split(' ')[1]);
+
+                UInt64 C = A;
+                for (UInt64 i = A + 1; i <= B; i++)
+                {
+                    C = C & i;
+                }
+
+                Console.WriteLine(C);
+            }
         }
 
         static void Countergame()
