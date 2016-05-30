@@ -29,10 +29,14 @@ namespace ConsoleApplication2
                 UInt64 B = Convert.ToUInt64(AB.Split(' ')[1]);
 
                 UInt64 C = A;
-                for (UInt64 i = A + 1; i <= B; i++)
+                UInt64 f = 1;
+                for (UInt64 i = A + 1; i <= B; i += f )
                 {
                     C = C & i;
+                    f *= 2;
                 }
+
+                C = C & B;
 
                 Console.WriteLine(C);
             }
