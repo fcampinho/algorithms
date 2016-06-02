@@ -14,8 +14,60 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            ANDproduct();
+            //BreadthFirstSearchShortestReach();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
+            int[] q = new int[] { 406, 157, 415, 318, 472, 46, 252, 187, 364, 481, 450, 90, 390, 35, 452, 74, 196, 312, 142, 160, 143, 220, 483, 392, 443, 488, 79, 234, 68, 150, 356, 496, 69, 88, 177, 12, 288, 120, 222, 270, 441, 422, 103, 321, 65, 316, 448, 331, 117, 183, 184, 128, 323, 141, 467, 31, 172, 48, 95, 359, 239, 209, 398, 99, 440, 171, 86, 233, 293, 162, 121, 61, 317, 52, 54, 273, 30, 226, 421, 64, 204, 444, 418, 275, 263, 108, 10, 149, 497, 20, 97, 136, 139, 200, 266, 238, 493, 22, 17, 39 };
+            quickSort2(ref q);
+        }
+
+
+        static void BreadthFirstSearchShortestReach()
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+            for (int j = 0; j < t; j++)
+            {
+                string NM = Console.ReadLine();
+                int N = Convert.ToInt32(NM.Split(' ')[0]);
+                int M = Convert.ToInt32(NM.Split(' ')[1]);
+
+                Dictionary<int, int> sumPrev = new Dictionary<int, int>();
+
+                //Dictionary<int, int> nD = new Dictionary<int, int>();
+                Dictionary<int, int> nI = new Dictionary<int, int>();
+                for (int k = 0; k < M; k++)
+                {
+                    string[] strNode = Console.ReadLine().Split(' ');
+                    //nD.Add(Convert.ToInt32 ( strNode[0]), Convert.ToInt32(strNode[1]));
+                    nI.Add(Convert.ToInt32(strNode[1]), Convert.ToInt32(strNode[0]));
+                }
+
+                int s = Convert.ToInt32(Console.ReadLine());
+                string path = "";
+                for (int i = 1; i <= N; i++)
+                {
+                    if (i == s) continue;
+
+                    int next = 0;
+                    bool f = false;
+                    int sum = 0;
+                    while (!f)
+                    {
+                        //if (nD.ContainsKey(i)) next = nD[i];
+                        if (nI.ContainsKey(i)) next = nI[i];
+                        else { path += "-1 "; break; }
+
+                        sum += 6;
+
+                        if (next == s)
+                        {
+                            f = true;
+                            path += sum.ToString() + " ";
+                        }
+                    }
+                }
+
+                Console.WriteLine(path);
+            }
         }
 
         static void ANDproduct()
@@ -30,7 +82,7 @@ namespace ConsoleApplication2
 
                 UInt64 C = A;
                 UInt64 f = 1;
-                for (UInt64 i = A + 1; i <= B; i += f )
+                for (UInt64 i = A + 1; i <= B; i += f)
                 {
                     C = C & i;
                     f *= 2;
@@ -1511,14 +1563,37 @@ namespace ConsoleApplication2
             Console.Write(string.Join(" ", _ar));
         }
 
+        static void quickSort2(ref int[] ar)
+        {
+            int pivot = ar[0];
+            List<int> left = new List<int>();
+            List<int> right = new List<int>();
+
+            if (pivot == 318) Console.WriteLine('o');
+
+            for (int i = 1; i < ar.Length; i++)
+            {
+                if (pivot > ar[i]) left.Add(ar[i]);
+                else right.Add(ar[i]);
+            }
+
+            int[] arLeft = left.ToArray();
+            if (arLeft.Length > 1) quickSort2(ref arLeft);
+                       
+            int[] arRight = right.ToArray();
+            if (arRight.Length > 1) quickSort2(ref arRight);
+            
+            int[] arFull = new int[ar.Length];
+            if (arLeft.Length > 0) Array.Copy(arLeft, arFull, arLeft.Length);
+            Array.Copy(new int[] { pivot }, 0, arFull, arLeft.Length, 1);
+            if (arRight.Length > 0) Array.Copy(arRight, 0, arFull, arLeft.Length + 1, arRight.Length);
+
+            Console.WriteLine(string.Join(" ", arFull));
+
+            ar = arFull;
+        }
+
         static void quicksort(ref int[] A, int lo, int hi)
-
-
-
-
-
-
-
         {
             if (lo < hi)
             {
