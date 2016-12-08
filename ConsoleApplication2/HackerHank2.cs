@@ -16,10 +16,60 @@ namespace ConsoleApplication2
         {
             //BreadthFirstSearchShortestReach();
             //Pairs(new int[] { 1, 5, 3, 4, 2 }, 2);
-            int[] q = new int[] { 406, 157, 415, 318, 472, 46, 252, 187, 364, 481, 450, 90, 390, 35, 452, 74, 196, 312, 142, 160, 143, 220, 483, 392, 443, 488, 79, 234, 68, 150, 356, 496, 69, 88, 177, 12, 288, 120, 222, 270, 441, 422, 103, 321, 65, 316, 448, 331, 117, 183, 184, 128, 323, 141, 467, 31, 172, 48, 95, 359, 239, 209, 398, 99, 440, 171, 86, 233, 293, 162, 121, 61, 317, 52, 54, 273, 30, 226, 421, 64, 204, 444, 418, 275, 263, 108, 10, 149, 497, 20, 97, 136, 139, 200, 266, 238, 493, 22, 17, 39 };
-            quickSort2(ref q);
+            //int[] q = new int[] { 406, 157, 415, 318, 472, 46, 252, 187, 364, 481, 450, 90, 390, 35, 452, 74, 196, 312, 142, 160, 143, 220, 483, 392, 443, 488, 79, 234, 68, 150, 356, 496, 69, 88, 177, 12, 288, 120, 222, 270, 441, 422, 103, 321, 65, 316, 448, 331, 117, 183, 184, 128, 323, 141, 467, 31, 172, 48, 95, 359, 239, 209, 398, 99, 440, 171, 86, 233, 293, 162, 121, 61, 317, 52, 54, 273, 30, 226, 421, 64, 204, 444, 418, 275, 263, 108, 10, 149, 497, 20, 97, 136, 139, 200, 266, 238, 493, 22, 17, 39 };
+            //quickSort2(ref q);
+            Kangaroo();
         }
 
+        static void Kangaroo()
+        {
+            string[] tokens_x1 = Console.ReadLine().Split(' ');
+            int x1 = Convert.ToInt32(tokens_x1[0]);
+            int v1 = Convert.ToInt32(tokens_x1[1]);
+            int x2 = Convert.ToInt32(tokens_x1[2]);
+            int v2 = Convert.ToInt32(tokens_x1[3]);
+
+            if ((x1 > x2 && v1 > v2) || (x1 < x2 && v1 < v2) || (x1 != x2 && v1 == v2)) Console.Write("NO");
+            else
+            {
+                int minX = 0;
+                int maxX = 0;
+                int minXV = 0;
+                int maxXV = 0;
+
+                if (x1 < x2) { minX = x1; minXV = v1; maxX = x2; maxXV = v2; }
+                else { minX = x2; minXV = v2; maxX = x1; maxXV = v1; }
+
+                while (minX < maxX)
+                {
+                    minX += minXV;
+                    maxX += maxXV;
+                }
+
+                if (minX == maxX) Console.WriteLine("YES");
+                else Console.WriteLine("NO");
+            }
+        }
+
+        static void ComparetheTriplets()
+        {
+            string[] alice = new string[3];
+            string[] bob = new string[3];
+
+            int pAlice = 0;
+            int pBob = 0;
+
+            //alice = tokens_a0;
+            //bob = tokens_b0;
+
+            for (int i = 0; i <= 2; i++)
+            {
+                if (Convert.ToInt32(alice[i]) > Convert.ToInt32(bob[i])) pAlice += 1;
+                else if (Convert.ToInt32(alice[i]) < Convert.ToInt32(bob[i])) pBob += 1;
+            }
+
+            Console.Write(pAlice + " " + pBob);
+        }
 
         static void BreadthFirstSearchShortestReach()
         {
@@ -1579,10 +1629,10 @@ namespace ConsoleApplication2
 
             int[] arLeft = left.ToArray();
             if (arLeft.Length > 1) quickSort2(ref arLeft);
-                       
+
             int[] arRight = right.ToArray();
             if (arRight.Length > 1) quickSort2(ref arRight);
-            
+
             int[] arFull = new int[ar.Length];
             if (arLeft.Length > 0) Array.Copy(arLeft, arFull, arLeft.Length);
             Array.Copy(new int[] { pivot }, 0, arFull, arLeft.Length, 1);
