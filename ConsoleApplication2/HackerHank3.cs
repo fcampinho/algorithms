@@ -10,7 +10,58 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            BetweenTwoSets();
+            DivisibleSumPairs();
+        }
+
+        static void BonAppetit()
+        {
+            //Code in R
+            //f < -file("stdin")
+            //open(f)
+            //data < -c()
+            //while (length(line < -readLines(f, n = 1, warn = FALSE)) > 0)
+            //            {
+            //                data < -c(data, line)
+            //}
+
+            //            split_data < -strsplit(data, " ")
+            //data < - as.numeric(unlist(split_data))
+
+            //n < -data[1] + 2
+            //k < -data[2] + 3
+            //sumVector < -(sum(data[3:n]) - data[k]) / 2
+
+            //result = data[n + 1]
+            //text = "Bon Appetit"
+            //if (sumVector != result)
+            //            {
+            //                write.table(result - sumVector, sep = "", append = T, row.names = F, col.names = F)
+            //}
+            //            else
+            //            {
+            //                cat(text, sep = "\n")
+            //          }
+
+        }
+
+        static void DivisibleSumPairs()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            string[] a_temp = Console.ReadLine().Split(' ');
+            int[] a = Array.ConvertAll(a_temp, Int32.Parse);
+
+            int qty = 0;
+            for (int i = 0; i < n -1; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    if ((a[i] + a[j]) % k == 0) qty++;
+                }
+            }
+
+            Console.WriteLine(qty);
         }
 
         static void BetweenTwoSets()
