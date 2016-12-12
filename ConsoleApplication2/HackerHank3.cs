@@ -10,7 +10,24 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            DivisibleSumPairs();
+            SockMerchant();
+        }
+
+        static void SockMerchant()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] c_temp = Console.ReadLine().Split(' ');
+            int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+
+            Dictionary<int, int> q = new Dictionary<int, int>();
+            int qty = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (!q.ContainsKey(c[i])) q.Add(c[i], 1);
+                else { q[c[i]]++; if (q[c[i]] % 2 == 0) qty++; }
+            }
+
+            Console.WriteLine(qty);
         }
 
         static void BonAppetit()
@@ -53,7 +70,7 @@ namespace ConsoleApplication2
             int[] a = Array.ConvertAll(a_temp, Int32.Parse);
 
             int qty = 0;
-            for (int i = 0; i < n -1; i++)
+            for (int i = 0; i < n - 1; i++)
             {
                 for (int j = i + 1; j < n; j++)
                 {
