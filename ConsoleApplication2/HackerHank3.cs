@@ -10,7 +10,73 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            SockMerchant();
+            SavethePrisoner();
+        }
+
+        static void SavethePrisoner()
+        {
+            int p = 0;
+            int T = Convert.ToInt32(Console.ReadLine());
+            for (int j = 0; j < T; j++)
+            {
+                string[] v = Console.ReadLine().Split(' ');
+                int N = Convert.ToInt32(v[0]);
+                int M = Convert.ToInt32(v[1]);
+                int S = Convert.ToInt32(v[2]) - 1;
+                int r = 0;
+
+                M = M + S;
+                if (M > N) r = M % N;
+                else r = S + M;
+
+                if (r == 0) r = N;
+
+                Console.WriteLine(r);
+            }
+
+        }
+
+        static void ViralAdvertising()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int p = 0; int k = 5; int nk = 0;
+            for (int i = 0; i < n; i++)
+            {
+                nk = k / 2;
+                p += nk;
+
+                k = nk * 3;
+            }
+
+            Console.WriteLine(p);
+        }
+
+        static void BeautifulDaysattheMovies()
+        {
+            string s = Console.ReadLine();
+            string[] sa = s.Split(' ');
+            long i = Convert.ToInt64(sa[0]);
+            long j = Convert.ToInt64(sa[1]);
+            long k = Convert.ToInt64(sa[2]);
+
+            long n = 0;
+
+            for (long a = i; a <= j; a++)
+            {
+                long b = Convert.ToInt64(Reverse(a.ToString()));
+                if ((b - a) % k == 0)
+                {
+                    n = n + 1;
+                }
+            }
+            Console.WriteLine(n);
+        }
+        public static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
         }
 
         static void SockMerchant()
