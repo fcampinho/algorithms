@@ -10,7 +10,57 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            SavethePrisoner();
+            AppendandDelete();
+        }
+
+        static void AppendandDelete()
+        {
+            string s = Console.ReadLine();
+            string t = Console.ReadLine();
+            int k = Convert.ToInt32(Console.ReadLine());
+
+            bool equal = false;
+            bool inc = false;
+            for (int i = 0; i < k; i++)
+            {
+                if (!equal)
+                {
+                    if (s.Length > 0) s = s.Substring(0, s.Length - 1);
+                    if (s.Length <= t.Length && s == t.Substring(0, s.Length)) equal = true;
+                }
+                else
+                {
+                    if (t.Length - s.Length == k - i) { inc = true; break; }
+                    else if (t.Length - s.Length > k - i) break;
+                    else if (s.Length > 0) s = s.Substring(0, s.Length - 1);
+                }
+            }
+
+            if (inc) Console.WriteLine("Yes");
+            else Console.WriteLine("No");
+        }
+
+        static void JumpingontheCloudsRevisited()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            string[] c_temp = Console.ReadLine().Split(' ');
+            int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+
+            int i = 0;
+            int e = 100;
+            while (i < n)
+            {
+                i += k;
+                e--;
+
+                if (i > n - 1) { if (c[0] == 1) e -= 2; }
+                else if (c[i] == 1) e -= 2;
+
+            }
+
+            Console.WriteLine(e);
         }
 
         static void SavethePrisoner()
