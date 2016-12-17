@@ -10,7 +10,88 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            AppendandDelete();
+            RepeatedString();
+        }
+
+        static void RepeatedString()
+        {
+            string w = Console.ReadLine();
+            long n = Convert.ToInt64(Console.ReadLine());
+
+            long l = w.Length;
+            long m = 0;
+
+            for (int i = 0; i < l; i ++)
+            {
+                if (w[i] == 'a') m++;
+            }
+
+            long f = 0;
+            if (n > m) f = n / l * m;
+
+            long x = n % l;
+            if (x != 0)
+            {
+                for (int j = 0; j < x; j++ )
+                {
+                    if (w[j] == 'a') f++;
+                }
+            }
+
+            Console.WriteLine(f);
+
+        }
+
+        static void NonDivisibleSubset()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            string[] c_temp = Console.ReadLine().Split(' ');
+            int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+
+            Dictionary<int, int> m = new Dictionary<int, int>();
+            bool ind = false;
+
+            for (int i = 0; i < n; i++)
+            {
+                int r = c[i] % k;
+                if (r == 0) ind = true;
+                else if (m.ContainsKey(r)) m[r]++;
+                else m.Add(r, 1);
+            }
+
+            int count = 0;
+            //if (m.Count == 1) count = m.ElementAt(0).Value;
+            //else
+            for (int l = 0; l < m.Count; l++)
+            {
+                bool f = false;
+                for (int p = l; p < m.Count; p++)
+                {
+                    if (l == p)
+                    {
+                        if (m.ElementAt(l).Value > 1 && (m.ElementAt(l).Key * 2) % k == 0)
+                        {
+                            m[m.ElementAt(p).Key] = 1;
+                        }
+                    }
+                    else if (m.ElementAt(l).Key + m.ElementAt(p).Key == k)
+                    {
+                        count += Math.Max(m.ElementAt(l).Value, m.ElementAt(p).Value);
+                        f = true;
+                        m[m.ElementAt(p).Key] = 0;
+                        break;
+                    }
+
+                }
+                if (!f) count += m.ElementAt(l).Value;
+            }
+
+            if (ind) count++;
+
+            Console.WriteLine(count);
+
         }
 
         static void AppendandDelete()
