@@ -10,28 +10,52 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            JumpingontheClouds();
+            EqualizetheArray();
         }
 
+        static void EqualizetheArray()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] c_temp = Console.ReadLine().Split(' ');
+            int[] c = Array.ConvertAll(c_temp, Int32.Parse);
 
-		static void JumpingontheClouds()
-		{
-			int n = Convert.ToInt32(Console.ReadLine());
-			string[] c_temp = Console.ReadLine().Split(' ');
-			int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+            Dictionary<int, int> d = new Dictionary<int, int>();
 
-			int i = 0;
-			int qty = 0;
-			while (i < n)
-			{
-				if (c[i + 2] == 1) i++;
-				else i += 2;
+            for (int i = 0; i < n; i++)
+            {
+                if (d.ContainsKey(c[i])) d[c[i]]++;
+                else d.Add(c[i], 1);
+            }
 
-				qty++;
-			}
+            int max = 0;
+            int qty = 0;
+            foreach (var item in d)
+            {
+                if (item.Value > max) { qty += max; max = item.Value; }
+                else qty += item.Value;
+            }
 
-			Console.WriteLine(qty);
-		}
+            Console.WriteLine(qty);
+        }
+
+        static void JumpingontheClouds()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] c_temp = Console.ReadLine().Split(' ');
+            int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+
+            int i = 0;
+            int qty = 0;
+            while (i < n - 1)
+            {
+                if (i + 2 < n - 1 && c[i + 2] == 1) i++;
+                else i += 2;
+
+                qty++;
+            }
+
+            Console.WriteLine(qty);
+        }
 
         static void RepeatedString()
         {
@@ -41,7 +65,7 @@ namespace ConsoleApplication2
             long l = w.Length;
             long m = 0;
 
-            for (int i = 0; i < l; i ++)
+            for (int i = 0; i < l; i++)
             {
                 if (w[i] == 'a') m++;
             }
@@ -52,7 +76,7 @@ namespace ConsoleApplication2
             long x = n % l;
             if (x != 0)
             {
-                for (int j = 0; j < x; j++ )
+                for (int j = 0; j < x; j++)
                 {
                     if (w[j] == 'a') f++;
                 }
