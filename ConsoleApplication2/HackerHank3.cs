@@ -10,8 +10,28 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            RepeatedString();
+            JumpingontheClouds();
         }
+
+
+		static void JumpingontheClouds()
+		{
+			int n = Convert.ToInt32(Console.ReadLine());
+			string[] c_temp = Console.ReadLine().Split(' ');
+			int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+
+			int i = 0;
+			int qty = 0;
+			while (i < n)
+			{
+				if (c[i + 2] == 1) i++;
+				else i += 2;
+
+				qty++;
+			}
+
+			Console.WriteLine(qty);
+		}
 
         static void RepeatedString()
         {
