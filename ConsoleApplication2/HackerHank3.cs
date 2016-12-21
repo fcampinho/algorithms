@@ -10,7 +10,56 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            EqualizetheArray();
+            MinimumDistances();
+        }
+
+        static void MinimumDistances()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] A_temp = Console.ReadLine().Split(' ');
+            int[] A = Array.ConvertAll(A_temp, Int32.Parse);
+
+            Dictionary<int, int> dist = new Dictionary<int, int>();
+            Dictionary<int, int> last = new Dictionary<int, int>();
+
+            int min = Int32.MaxValue ;
+            for (int i = 0; i < n; i++)
+            {
+                if (last.ContainsKey(A[i])) { dist[A[i]] = Math.Min(dist[A[i]], i - last[A[i]]); min = Math.Min(min, dist[A[i]]); }
+                else { last.Add(A[i], i); dist.Add(A[i], Int32.MaxValue); }
+            }
+
+            if (min == Int32.MaxValue) Console.WriteLine(-1);
+            else Console.WriteLine(min);
+
+        }
+
+        static void BeautifulTriplets()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            string[] c_temp = Console.ReadLine().Split(' ');
+            int[] c = Array.ConvertAll(c_temp, Int32.Parse);
+
+            int qty = 0;
+            for (int i = 0; i < n - 2; i++)
+            {
+                int b = 0;
+                bool f = false;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (c[j] - c[i] == k) { f = true; b = j; break; }
+                }
+
+                if (f)
+                    for (int l = b + 1; l < n; l++)
+                    {
+                        if (c[l] - c[b] == k) { qty++; break; }
+                    }
+            }
+
+            Console.WriteLine(qty);
         }
 
         static void EqualizetheArray()
