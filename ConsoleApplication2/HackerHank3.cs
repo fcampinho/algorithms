@@ -10,7 +10,33 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            MinimumDistances();
+            FlatlandSpaceStations();
+        }
+
+        static void FlatlandSpaceStations()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int m = Convert.ToInt32(tokens_n[1]);
+            string[] A_temp = Console.ReadLine().Split(' ');
+            int[] A = Array.ConvertAll(A_temp, Int32.Parse);
+
+            Array.Sort(A);
+
+            int pos = A[0];
+            int max = 0;
+
+            if (pos != 0) max = pos;
+            if (A[m - 1] != n - 1) max = Math.Max(max, n - 1 - A[m - 1]);
+
+            for (int i = 1; i < m; i++)
+            {
+                int dist = (A[i] - pos) / 2;
+                max = Math.Max(dist, max);
+                pos = A[i];
+            }
+
+            Console.WriteLine(max);
         }
 
         static void MinimumDistances()
@@ -22,7 +48,7 @@ namespace ConsoleApplication2
             Dictionary<int, int> dist = new Dictionary<int, int>();
             Dictionary<int, int> last = new Dictionary<int, int>();
 
-            int min = Int32.MaxValue ;
+            int min = Int32.MaxValue;
             for (int i = 0; i < n; i++)
             {
                 if (last.ContainsKey(A[i])) { dist[A[i]] = Math.Min(dist[A[i]], i - last[A[i]]); min = Math.Min(min, dist[A[i]]); }
