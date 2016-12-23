@@ -10,7 +10,33 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            FlatlandSpaceStations();
+            FairRations();
+        }
+
+        static void FairRations()
+        {
+            int N = Convert.ToInt32(Console.ReadLine());
+            string[] B_temp = Console.ReadLine().Split(' ');
+            int[] B = Array.ConvertAll(B_temp, Int32.Parse);
+
+            bool ok = true;
+            int qty = 0;
+            for (int i = 0; i < N; i++)
+            {
+                if (B[i] % 2 != 0 && i < N - 1)
+                {
+                    B[i]++;
+                    B[i + 1]++;
+                    qty += 2;
+                }
+                else if (B[i] % 2 != 0 && i == N - 1)
+                {
+                    ok = false;
+                }
+            }
+
+            if (ok) Console.WriteLine(qty);
+            else Console.WriteLine("NO");
         }
 
         static void FlatlandSpaceStations()
