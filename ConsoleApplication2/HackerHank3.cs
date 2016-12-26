@@ -10,7 +10,48 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            FairRations();
+            HappyLadybugs();
+        }
+
+        static void HappyLadybugs()
+        {
+            int Q = Convert.ToInt32(Console.ReadLine());
+            string[] ret = new string[Q];
+            for (int a0 = 0; a0 < Q; a0++)
+            {
+                int n = Convert.ToInt32(Console.ReadLine());
+                string b = Console.ReadLine();
+                
+                Dictionary<char, int> color = new Dictionary<char, int>();
+                bool perfect = true; char last = ' '; bool lastAdd = false;
+                bool space = false;
+                for (int i = 0; i < b.Length; i++)
+                {
+                    if (color.ContainsKey(b[i])) color[b[i]]++;
+                    else if (b[i] != '_') color.Add(b[i], 1);
+
+                    if (last != ' ' && perfect)
+                    {
+                        if (b[i] == last && perfect) lastAdd = true;
+                        else if (lastAdd && perfect) lastAdd = false;
+                        else perfect = false;
+                    }
+
+                    last = b[i];
+
+                    if (b[i] == '_') space = true;
+                }
+
+                if ((space || perfect) && !color.ContainsValue(1)) ret[a0] = "YES";
+                else ret[a0] = "NO";
+            }
+
+            for (int j = 0; j < Q; j++)
+            {
+                Console.WriteLine(ret[j]);
+            }
+
+
         }
 
         static void FairRations()
