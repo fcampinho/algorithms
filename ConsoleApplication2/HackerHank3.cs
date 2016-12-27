@@ -10,7 +10,28 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            HappyLadybugs();
+            StrangeCounter();
+        }
+
+        static void StrangeCounter()
+        {
+            long t = Convert.ToInt64(Console.ReadLine());
+
+            //double z = Math.Floor(Math.Log((t - 1) / 3 + 1, 2));
+            //double z = Math.Floor(Math.Log((t - 1) / 3 + 1, 2));
+
+            long n = Convert.ToInt64(Math.Ceiling(Math.Log(t / 3 + 1, 2)));
+            long ret = 3 * 2 ^ n - t - 2;
+
+            //long n = 3;
+            //while (t > n)
+            //{
+            //    t -= n;
+            //    n *= 2;
+            //}
+
+            //else { z = n - t + p; p = t + 1; }
+            Console.WriteLine(ret);
         }
 
         static void HappyLadybugs()
@@ -21,7 +42,7 @@ namespace ConsoleApplication2
             {
                 int n = Convert.ToInt32(Console.ReadLine());
                 string b = Console.ReadLine();
-                
+
                 Dictionary<char, int> color = new Dictionary<char, int>();
                 bool perfect = true; char last = ' '; bool lastAdd = false;
                 bool space = false;
