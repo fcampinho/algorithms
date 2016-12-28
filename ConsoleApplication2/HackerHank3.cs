@@ -10,7 +10,31 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            StrangeCounter();
+            SuperReducedString();
+        }
+
+        static void SuperReducedString()
+        {
+            string input = Console.ReadLine();
+
+            bool r = true;
+            while (r)
+            {
+                int i = 0;
+                string temp = "";
+                r = false;
+                while (i < input.Length)
+                {
+                    if (i + 1 < input.Length && input[i] == input[i + 1]) { i += 2; r = true; }
+                    else { temp += input[i].ToString(); i += 1; }
+                }
+
+                input = temp;
+                temp = "";
+            }
+
+            if (input.Length == 0) Console.WriteLine("Empty String");
+            else Console.WriteLine(input);
         }
 
         static void StrangeCounter()
