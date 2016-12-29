@@ -10,7 +10,20 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            SuperReducedString();
+            CamelCase();
+        }
+
+        static void CamelCase()
+        {
+            string s = Console.ReadLine();
+            int j = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] <= 'Z') j++;
+            }
+
+            Console.WriteLine(j + 1);
         }
 
         static void SuperReducedString()
