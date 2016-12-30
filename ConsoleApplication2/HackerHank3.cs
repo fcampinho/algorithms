@@ -10,7 +10,69 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            CamelCase();
+            TwoCharacters();
+        }
+
+        static void TwoCharacters()
+        {
+            int len = Convert.ToInt32(Console.ReadLine());
+            string s = Console.ReadLine();
+
+            bool repeat = true;
+            Dictionary<char, int> c = new Dictionary<char, int>();
+            char l = ' ';
+            while (repeat)
+            {
+                repeat = false;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (s[i] == l) { s = s.Replace(l.ToString(), ""); repeat = true; break; }
+                    l = s[i];
+                }
+            }
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (!c.ContainsKey(s[i])) c.Add(s[i], 1);
+                else c[s[i]]++;
+            }
+
+            Dictionary<char, bool> valid = new Dictionary<char, bool>();
+            Dictionary<char, bool> equal = new Dictionary<char, bool>();
+            int max = 0;
+
+            foreach (var letter in c)
+            {
+                int qtyOcurr = 0;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (s[i] == letter.Key)
+                    {
+                        qtyOcurr++;
+                        for (int m = 0; m < equal.Count; m++)
+                        {
+                            if (!equal.ElementAt(m).Value) { valid[equal.ElementAt(m).Key] = false; }
+                            else if (equal.ElementAt(m).Value) equal[equal.ElementAt(m).Key] = false;
+                        }
+                    }
+                    else
+                    {
+                        if (equal.ContainsKey(s[i]) && equal[s[i]]) valid[s[i]] = false;
+                        else if (equal.ContainsKey(s[i]) && !equal[s[i]]) equal[s[i]] = true;
+                        else if (!equal.ContainsKey(s[i]) && qtyOcurr < 2) { equal.Add(s[i], true); valid.Add(s[i], true); }
+                    }
+                }
+
+                foreach (var item in valid)
+                {
+                    if (item.Value) max = Math.Max(max, letter.Value + c[item.Key]);
+                }
+
+                valid.Clear();
+                equal.Clear();
+            }
+
+            Console.WriteLine(max);
         }
 
         static void CamelCase()
