@@ -10,7 +10,22 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            TwoCharacters();
+            MarsExploration();
+        }
+
+        static void MarsExploration()
+        {
+            string S = Console.ReadLine();
+            int qty = 0;
+            string m = "SOS";
+            for (int i = 0; i < S.Length; i += 3)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (S[i + j] != m[j]) qty++;
+                }
+            }
+            Console.WriteLine(qty);
         }
 
         static void TwoCharacters()
