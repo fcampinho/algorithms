@@ -10,7 +10,23 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            MarsExploration();
+            StringConstruction();
+        }
+
+        static void StringConstruction()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            for (int a0 = 0; a0 < n; a0++)
+            {
+                string s = Console.ReadLine();
+                string p = "";
+                int qty = 0;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (p.IndexOf(s[i]) == -1) { qty++; p += s[i]; }
+                }
+                Console.WriteLine(qty);
+            }
         }
 
         static void MarsExploration()
