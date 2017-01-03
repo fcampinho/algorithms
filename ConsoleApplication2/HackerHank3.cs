@@ -10,7 +10,25 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            StringConstruction();
+            BeautifulBinaryString();
+        }
+
+        static void BeautifulBinaryString()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string B = Console.ReadLine();
+
+            int qty = 0;
+            if (n > 1)
+            {
+                int i = 0;
+                while (i < n - 2)
+                {
+                    if (B.Substring(i, 3) == "010") { qty++; i += 3; }
+                    else i++;
+                }
+            }
+            Console.WriteLine(qty);
         }
 
         static void StringConstruction()
