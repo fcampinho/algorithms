@@ -10,7 +10,51 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            BeautifulBinaryString();
+            PalindromeIndex();
+        }
+
+        static void PalindromeIndex()
+        {
+            int T = Convert.ToInt32(Console.ReadLine());
+            string[] S = new string[T];
+            for (int i = 0; i < T; i++)
+            {
+                S[i] = Console.ReadLine();
+            }
+
+            for (int i = 0; i < T; i++)
+            {
+                string n = S[i];
+                int j = 0;
+                bool p = true;
+                bool t = false;
+                int jt = -1; int mt = -1;
+                int m = n.Length - 1;
+                int index = -1;
+
+                while (p && j < m)
+                {
+                    if (index == -1 && n[j] != n[m])
+                    {
+                        if (!t && n[j + 1] == n[m]) { index = j; jt = j; mt = m; j++; }
+                        else if (n[j] == n[m - 1]) { index = m; jt = j; mt = m; m--; }
+                        else p = false;
+                    }
+                    else if (n[j] != n[m])
+                    {
+                        if (!t) { j = jt; m = mt; t = true; index = -1; }
+                        else p = false;
+                    }
+                    else
+                    {
+                        j++;
+                        m--;
+                    }
+                }
+
+                if (!p) Console.WriteLine("-1");
+                else Console.WriteLine(index);
+            }
         }
 
         static void BeautifulBinaryString()
