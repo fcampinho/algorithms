@@ -10,7 +10,31 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            PalindromeIndex();
+            HackerlandRadioTransmitters();
+        }
+
+        static void HackerlandRadioTransmitters()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            string[] x_temp = Console.ReadLine().Split(' ');
+            int[] x = Array.ConvertAll(x_temp, Int32.Parse);
+
+            Array.Sort(x);
+
+            int f = x[0];
+            int p = x[0];
+            int qty = 0;
+            for (int i = 1; i < n; i++)
+            {
+                if (f + k >= x[i]) p = x[i];
+                else if (x[i] - p > k) { qty++; f = x[i]; p = f; }
+            }
+
+            qty++;
+            Console.WriteLine(qty);
+
         }
 
         static void PalindromeIndex()
