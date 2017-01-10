@@ -10,7 +10,51 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            HackerlandRadioTransmitters();
+            LuckBalance();
+        }
+
+        static void LuckBalance()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+
+            int[] a = new int[n];
+            int p = 0;
+            int s = 0;
+            int f = k;
+
+            int loses = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] temp = Console.ReadLine().Split(' ');
+                int l = Convert.ToInt32(temp[0]);
+                int t = Convert.ToInt32(temp[1]);
+                
+                if (t == 1)
+                {
+                    if (k > 0)
+                    {
+                        loses += l;
+                        k--;
+                        a[p] = l;
+                        p++;            
+                    }
+                    else
+                    {
+                        for (int j = 0; j < f; j++)
+                        {
+                            if (a[j] < l) { s = a[j]; a[j] = l; l = s; loses += a[j] - l; }
+                        }
+                        loses -= l;
+                    }
+                }
+                else loses += l;
+
+            }
+
+            Console.WriteLine(loses);
         }
 
         static void HackerlandRadioTransmitters()
