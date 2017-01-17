@@ -10,7 +10,35 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            LuckBalance();
+            SumvsXOR();
+        }
+
+        static void SumvsXOR()
+        {
+            //Brute Force
+            //long n = Convert.ToInt64(Console.ReadLine());
+            //int qty = 0;
+            //for (int i = 0; i < n; i++)
+            //{
+            //    long x = i ^ n;
+            //    if (i + n == x) qty++;
+            //}
+
+            //if (n == 0) Console.WriteLine(1);
+            //Console.WriteLine(qty);
+
+            //Correct
+            long n = Convert.ToInt64(Console.ReadLine());
+            string bitStr = Convert.ToString(n, 2);
+            int qty = 0;
+            for (int i = 0; i < bitStr.Length; i++)
+            {
+                if (bitStr[i] == '0') qty++;
+            }
+
+            if (n == 0 ) Console.WriteLine(1);
+            else Console.WriteLine(Math.Pow(2, qty));
+
         }
 
         static void LuckBalance()
@@ -31,7 +59,7 @@ namespace ConsoleApplication2
                 string[] temp = Console.ReadLine().Split(' ');
                 int l = Convert.ToInt32(temp[0]);
                 int t = Convert.ToInt32(temp[1]);
-                
+
                 if (t == 1)
                 {
                     if (k > 0)
@@ -39,7 +67,7 @@ namespace ConsoleApplication2
                         loses += l;
                         k--;
                         a[p] = l;
-                        p++;            
+                        p++;
                     }
                     else
                     {
