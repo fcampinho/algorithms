@@ -10,7 +10,19 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            SumvsXOR();
+            GameofStones();
+        }
+
+        static void GameofStones()
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < t; i++)
+            {
+                int n = Convert.ToInt32(Console.ReadLine());
+
+                if (n % 7 <= 1) Console.WriteLine("Second");
+                else Console.WriteLine("First");
+            }
         }
 
         static void SumvsXOR()
@@ -36,7 +48,7 @@ namespace ConsoleApplication2
                 if (bitStr[i] == '0') qty++;
             }
 
-            if (n == 0 ) Console.WriteLine(1);
+            if (n == 0) Console.WriteLine(1);
             else Console.WriteLine(Math.Pow(2, qty));
 
         }
