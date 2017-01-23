@@ -10,7 +10,44 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            GameofStones();
+            AbsolutePermutation();
+        }
+
+        static void AbsolutePermutation()
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+            
+            for (int a0 = 0; a0 < t; a0++)
+            {
+                string[] tokens_n = Console.ReadLine().Split(' ');
+                int n = Convert.ToInt32(tokens_n[0]);
+                int k = Convert.ToInt32(tokens_n[1]);
+                StringBuilder c = new StringBuilder();
+
+                if (k == 0)
+                {
+                    for (int i = 1; i <= n; i++) 
+                    {
+                        c.Append(i + " ");
+                    }
+                    Console.WriteLine(c.ToString());
+                }
+                else if (n % k == 0 )
+                {
+                    int p = 0;
+                    bool m = true;
+                    for (int i = 1; i <= n; i++)
+                    {
+                        if (m) c.Append(i + k + " ");
+                        else c.Append(i - k + " ");
+
+                        p++;
+                        if (p == k) { p = 0; m = !m; }
+                    }
+                    Console.WriteLine(c.ToString());
+                }
+                else Console.WriteLine(-1);
+            }
         }
 
         static void GameofStones()
