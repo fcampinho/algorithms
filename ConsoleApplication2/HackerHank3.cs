@@ -10,13 +10,93 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            AbsolutePermutation();
+            TheBombermanGame();
+        }
+
+        static void TheBombermanGame()
+        {
+            string[] RCN = Console.ReadLine().Split(' ');
+            int R = Convert.ToInt32(RCN[0]);
+            int C = Convert.ToInt32(RCN[1]);
+            long N = Convert.ToInt32(RCN[2]);
+
+            long p = 0;
+            if (N > 5)
+            {
+                p = (N % 4);
+                if (p == 0) p = 2;
+                if (p == 1) p = 5;
+            }
+            else p = N;
+
+            string[] rows = new string[R];
+
+            for (int j = 0; j < R; j++)
+            {
+                rows[j] = Console.ReadLine();
+            }
+
+            if (p == 1)
+            {
+                for (int j = 0; j < R; j++)
+                {
+                    Console.WriteLine(rows[j]);
+                }
+            }
+
+            if (p == 2 || p == 4)
+            {
+                for (int j = 0; j < R; j++)
+                {
+                    Console.WriteLine(new String('O', C));
+                }
+            }
+
+            if (p == 3 || p == 5)
+            {
+                for (int a = 3; a <= p; a += 2)
+                {
+                    string row = "";
+
+                    for (int j = 0; j < R; j++)
+                    {
+                        row = "";
+                        for (int i = 0; i < C; i++)
+                        {
+                            if (rows[j][i] == 'O')
+                            {
+                                row += "p";
+                            }
+                            else
+                            {
+                                if (i > 0 && row[i - 1] == 'p') row += 't';
+                                else if (i < C - 1 && rows[j][i + 1] == 'O') row += 't';
+                                else if (j > 0 && rows[j - 1][i] == 'p') row += 't';
+                                else if (j < R - 1 && rows[j + 1][i] == 'O') row += 't';
+                                else row += '.';
+                            }
+                        }
+                        rows[j] = row;
+                    }
+
+                    for (int j = 0; j < R; j++)
+                    {
+                        rows[j] = rows[j].Replace('.', 'O').Replace('t', '.').Replace('p', '.');
+                    }
+                }
+
+                for (int j = 0; j < R; j++)
+                {
+                    Console.WriteLine(rows[j]);
+                }
+
+            }
         }
 
         static void AbsolutePermutation()
         {
             int t = Convert.ToInt32(Console.ReadLine());
-            
+
             for (int a0 = 0; a0 < t; a0++)
             {
                 string[] tokens_n = Console.ReadLine().Split(' ');
@@ -26,13 +106,13 @@ namespace ConsoleApplication2
 
                 if (k == 0)
                 {
-                    for (int i = 1; i <= n; i++) 
+                    for (int i = 1; i <= n; i++)
                     {
                         c.Append(i + " ");
                     }
                     Console.WriteLine(c.ToString());
                 }
-                else if (n % k == 0 )
+                else if (n % k == 0)
                 {
                     int p = 0;
                     bool m = true;
