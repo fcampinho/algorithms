@@ -13,6 +13,44 @@ namespace ConsoleApplication2
             TheBombermanGame();
         }
 
+        static void EmasSupercomputer()
+        {
+            string[] RCN = Console.ReadLine().Split(' ');
+            int N = Convert.ToInt32(RCN[0]);
+            int M = Convert.ToInt32(RCN[1]);
+
+            string[] rows = new string[N];
+
+            for (int i = 0; i < N; i++)
+            {
+                rows[i] = Console.ReadLine();
+            }
+
+            int min1 = 0;
+            int min2 = 0;
+
+            HashSet<string> valid1 = new HashSet<string>();
+            HashSet<string> valid2 = new HashSet<string>();
+
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < M; j++)
+                {
+                    if (rows[i][j] == 'G')
+                    {
+                        if (i > 0 && i < N - 1 && j > 0 && j< M -1)
+                        {
+
+                        }
+                        else
+                        {
+                            if 
+                        }
+                    }
+                }
+            }
+        }
+
         static void TheBombermanGame()
         {
             string[] RCN = Console.ReadLine().Split(' ');
