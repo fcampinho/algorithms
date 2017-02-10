@@ -10,7 +10,7 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
-            TheBombermanGame();
+            EmasSupercomputer();
         }
 
         static void EmasSupercomputer()
@@ -26,11 +26,11 @@ namespace ConsoleApplication2
                 rows[i] = Console.ReadLine();
             }
 
-            int min1 = 0;
-            int min2 = 0;
-
-            HashSet<string> valid1 = new HashSet<string>();
-            HashSet<string> valid2 = new HashSet<string>();
+            int max = 1;
+            int min = 0;
+            int key = 0;
+            Dictionary<int, HashSet<string>> dicBuild = new Dictionary<int, HashSet<string>>();
+            HashSet<string> build = new HashSet<string>();
 
             for (int i = 0; i < N; i++)
             {
@@ -38,19 +38,88 @@ namespace ConsoleApplication2
                 {
                     if (rows[i][j] == 'G')
                     {
-                        if (i > 0 && i < N - 1 && j > 0 && j< M -1)
-                        {
+                        bool impendiment = false;
+                        int p = 1;
 
-                        }
-                        else
+                        build = new HashSet<string>();
+                        build.Add(i.ToString() + ',' + j.ToString());
+                        while (!impendiment)
                         {
-                            if 
+                            if (i - p < 0) impendiment = true;
+                            else if (rows[i - p][j] == 'B') impendiment = true;
+                            else if (j - p < 0) impendiment = true;
+                            else if (rows[i][j - p] == 'B') impendiment = true;
+                            else if (i + p >= N) impendiment = true;
+                            else if (rows[i + p][j] == 'B') impendiment = true;
+                            else if (j + p >= M) impendiment = true;
+                            else if (rows[i][j + p] == 'B') impendiment = true;
+                            else
+                            {
+                                build.Add((i - p).ToString() + ',' + j);
+                                build.Add((i).ToString() + "," + (j - p).ToString());
+                                build.Add((i + p).ToString() + "," + j.ToString());
+                                build.Add((i).ToString() + "," + (j + p).ToString());
+
+                                p++;
+                            }
                         }
+
+                        if (p > 1) { dicBuild.Add(key, build); key++; }
+                        else min = 1;
                     }
                 }
             }
-        }
 
+            bool m = false;
+            if (dicBuild.Count == 1) Console.WriteLine(dicBuild[0].Count * min);
+            else
+            {
+                foreach (var h1 in dicBuild)
+                {
+                    foreach (var h2 in dicBuild)
+                    {
+                        if (h1.Key != h2.Key)
+                        {
+                            m = true;
+
+                            var temp1 = h1.Value.ToList();
+                            var temp2 = h2.Value.ToList();
+
+                            bool d = true;
+                            while (d)
+                            {
+                                foreach (var item in temp2)
+                                {
+                                    if (temp1.Contains(item))
+                                    {
+                                        m = false;
+                                        break;
+                                    }
+                                }
+
+                                if (!m)
+                                {
+                                    if (temp1.Count > temp2.Count) temp1 = temp1.Take(temp1.Count - 4).ToList();
+                                    else temp2 = temp2.Take(temp2.Count - 4).ToList();
+
+
+                                }
+                                else d = false;
+
+                                if (temp1.Count == 1 && temp2.Count == 1) d = false;
+                                else m = true;
+                            }
+
+                            if (m) max = Math.Max(max, temp1.Count * temp2.Count);
+                            else max = Math.Max(max, Math.Max(h1.Value.Count, h2.Value.Count));
+                        }
+
+                    }
+                }
+
+                Console.WriteLine(max);
+            }
+        }
         static void TheBombermanGame()
         {
             string[] RCN = Console.ReadLine().Split(' ');
